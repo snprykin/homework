@@ -50,20 +50,31 @@ sudo systemctl enable zabbix-server apache2
 ### Требования к результатам
 1. Приложите в файл README.md скриншот раздела Configuration > Hosts, где видно, что агенты подключены к серверу
 
-![Название скриншота 2](ссылка на скриншот 2)`
+![Hosts](https://github.com/snprykin/gitlab-hw/blob/main/screenshots/2.jpg)`
 
 2. Приложите в файл README.md скриншот лога zabbix agent, где видно, что он работает с сервером
 
-![Название скриншота 2](ссылка на скриншот 2)`
+![Log_1](https://github.com/snprykin/gitlab-hw/blob/main/screenshots/3.jpg)`
 
 3. Приложите в файл README.md скриншот раздела Monitoring > Latest data для обоих хостов, где видны поступающие от агентов данные.
 
-![Название скриншота 2](ссылка на скриншот 2)`
+![Latest data](https://github.com/snprykin/gitlab-hw/blob/main/screenshots/4.jpg)`
 
 4. Приложите в файл README.md текст использованных команд в GitHub
 
 
 ```
+
+sudo -i
+apt update 
+apt upgrade 
+wget https://repo.zabbix.com/zabbix/7.4/release/ubuntu/pool/main/z/zabbix-release/zabbix-release_latest_7.4+ubuntu24.04_all.deb
+dpkg -i zabbix-release_latest_7.4+ubuntu24.04_all.deb
+apt update
+apt install zabbix-agent2
+sed -i 's/Server=127.0.0.1/Server=158.160.178.98/g' /etc/zabbix/zabbix_agent2.conf
+systemctl restart zabbix-agent2.service 
+systemctl enable zabbix-agent2.service 
 
 ```
 
