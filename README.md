@@ -14,7 +14,7 @@
 
 1. Прикрепите в файл README.md скриншот авторизации в админке.
 
-![Админ панель Zabbix](screenshot/1.jpg)`
+![Админ панель Zabbix](https://github.com/snprykin/gitlab-hw/blob/main/screenshots/1.jpg)`
 
 2. Приложите в файл README.md текст использованных команд в GitHub.
 
