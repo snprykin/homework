@@ -48,7 +48,7 @@
 Прикрепите в файл README.md скриншот страницы хостов, где будут видны привязки шаблонов с названиями «Задание 2-3».
 Хосты должны иметь зелёный статус подключения.
 
-![Задание 2-3](https://github.com/snprykin/homework/blob/main/%D0%9C%D0%BE%D0%BD%D0%B8%D1%82%D0%BE%D1%80%D0%B8%D0%BD%D0%B3/Zabbix_2/screenshots/1.jpg)
+![Задание 2-3](https://github.com/snprykin/homework/blob/main/%D0%9C%D0%BE%D0%BD%D0%B8%D1%82%D0%BE%D1%80%D0%B8%D0%BD%D0%B3/Zabbix_2/screenshots/2.jpg)
 ---
 
 ### Задание 4
@@ -64,4 +64,4 @@
 
 Прикрепите в файл README.md скриншот дашборда с названием «Задание 4»
 
-![Задание 4](https://github.com/snprykin/homework/blob/main/%D0%9C%D0%BE%D0%BD%D0%B8%D1%82%D0%BE%D1%80%D0%B8%D0%BD%D0%B3/Zabbix_2/screenshots/1.jpg)
+![Задание 4](https://github.com/snprykin/homework/blob/main/%D0%9C%D0%BE%D0%BD%D0%B8%D1%82%D0%BE%D1%80%D0%B8%D0%BD%D0%B3/Zabbix_2/screenshots/3.jpg)
