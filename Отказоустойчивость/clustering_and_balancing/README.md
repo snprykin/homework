@@ -7,7 +7,8 @@
 Настройте балансировку Round-robin на 4 уровне.
 На проверку направьте конфигурационный файл haproxy, скриншоты, где видно перенаправление запросов на разные серверы при обращении к HAProxy.
 
-```global
+```
+global
     # to have these messages end up in /var/log/haproxy.log you will
     # need to:
     #
@@ -75,9 +76,12 @@ listen stats
     stats enable
     stats uri /
     stats refresh 5s
-    stats realm Haproxy\ Stats```
+    stats realm Haproxy\ Stats
+```
 
-![Задание 1_1](https://github.com/snprykin/homework/blob/main/%D0%9C%D0%BE%D0%BD%D0%B8%D1%82%D0%BE%D1%80%D0%B8%D0%BD%D0%B3/Zabbix_2/screenshots/1.jpg)
+![Задание 1_1](https://github.com/snprykin/homework/blob/main/%D0%9E%D1%82%D0%BA%D0%B0%D0%B7%D0%BE%D1%83%D1%81%D1%82%D0%BE%D0%B9%D1%87%D0%B8%D0%B2%D0%BE%D1%81%D1%82%D1%8C/clustering_and_balancing/screenshots/1.jpg)
+
+![Задание 1_2](https://github.com/snprykin/homework/blob/main/%D0%9E%D1%82%D0%BA%D0%B0%D0%B7%D0%BE%D1%83%D1%81%D1%82%D0%BE%D0%B9%D1%87%D0%B8%D0%B2%D0%BE%D1%81%D1%82%D1%8C/clustering_and_balancing/screenshots/2.jpg)
 ---
 
 ### Задание 2
