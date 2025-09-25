@@ -14,7 +14,7 @@
 
 1. Прикрепите в файл README.md скриншот авторизации в админке.
 
-![Админ панель Zabbix](https://github.com/snprykin/gitlab-hw/blob/main/screenshots/1.jpg)`
+![Админ панель Zabbix](https://github.com/snprykin/homework/blob/main/%D0%9C%D0%BE%D0%BD%D0%B8%D1%82%D0%BE%D1%80%D0%B8%D0%BD%D0%B3/Zabbix/screenshots/1.jpg)`
 
 2. Приложите в файл README.md текст использованных команд в GitHub.
 
@@ -50,15 +50,15 @@ sudo systemctl enable zabbix-server apache2
 ### Требования к результатам
 1. Приложите в файл README.md скриншот раздела Configuration > Hosts, где видно, что агенты подключены к серверу
 
-![Hosts](https://github.com/snprykin/gitlab-hw/blob/main/screenshots/2.jpg)`
+![Hosts](https://github.com/snprykin/homework/blob/main/%D0%9C%D0%BE%D0%BD%D0%B8%D1%82%D0%BE%D1%80%D0%B8%D0%BD%D0%B3/Zabbix/screenshots/2.jpg)`
 
 2. Приложите в файл README.md скриншот лога zabbix agent, где видно, что он работает с сервером
 
-![Log_1](https://github.com/snprykin/gitlab-hw/blob/main/screenshots/3.jpg)`
+![Log_1](https://github.com/snprykin/homework/blob/main/%D0%9C%D0%BE%D0%BD%D0%B8%D1%82%D0%BE%D1%80%D0%B8%D0%BD%D0%B3/Zabbix/screenshots/3.jpg)`
 
 3. Приложите в файл README.md скриншот раздела Monitoring > Latest data для обоих хостов, где видны поступающие от агентов данные.
 
-![Latest data](https://github.com/snprykin/gitlab-hw/blob/main/screenshots/4.jpg)`
+![Latest data](https://github.com/snprykin/homework/blob/main/%D0%9C%D0%BE%D0%BD%D0%B8%D1%82%D0%BE%D1%80%D0%B8%D0%BD%D0%B3/Zabbix/screenshots/4.jpg)`
 
 4. Приложите в файл README.md текст использованных команд в GitHub
 
