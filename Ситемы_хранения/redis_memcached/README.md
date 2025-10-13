@@ -31,24 +31,23 @@
 
 ## Задание 2
 ### Memcached
-[Ответ](https://github.com/snprykin/homework/blob/main/%D0%A1%D0%B8%D1%82%D0%B5%D0%BC%D1%8B_%D1%85%D1%80%D0%B0%D0%BD%D0%B5%D0%BD%D0%B8%D1%8F/redis_memcached/screenshots/1.jpg)
+![Ответ](https://github.com/snprykin/homework/blob/main/%D0%A1%D0%B8%D1%82%D0%B5%D0%BC%D1%8B_%D1%85%D1%80%D0%B0%D0%BD%D0%B5%D0%BD%D0%B8%D1%8F/redis_memcached/screenshots/1.jpg)
 
 ---
 
 ## Задание 3
 ### Удаление по TTL в Memcached
-[Ответ](https://github.com/snprykin/homework/blob/main/%D0%A1%D0%B8%D1%82%D0%B5%D0%BC%D1%8B_%D1%85%D1%80%D0%B0%D0%BD%D0%B5%D0%BD%D0%B8%D1%8F/redis_memcached/screenshots/2.jpg)
+![Ответ](https://github.com/snprykin/homework/blob/main/%D0%A1%D0%B8%D1%82%D0%B5%D0%BC%D1%8B_%D1%85%D1%80%D0%B0%D0%BD%D0%B5%D0%BD%D0%B8%D1%8F/redis_memcached/screenshots/2.jpg)
 
 ---
 
 ## Задание 4
 ### Запись данных в Redis
-[Ответ](https://github.com/snprykin/homework/blob/main/%D0%A1%D0%B8%D1%82%D0%B5%D0%BC%D1%8B_%D1%85%D1%80%D0%B0%D0%BD%D0%B5%D0%BD%D0%B8%D1%8F/redis_memcached/screenshots/3.jpg)
+![Ответ](https://github.com/snprykin/homework/blob/main/%D0%A1%D0%B8%D1%82%D0%B5%D0%BC%D1%8B_%D1%85%D1%80%D0%B0%D0%BD%D0%B5%D0%BD%D0%B8%D1%8F/redis_memcached/screenshots/3.jpg)
 
 ---
 
 ### Задание 5
 #### Работа с числами
-[Ответ](https://github.com/snprykin/homework/blob/main/%D0%A1%D0%B8%D1%82%D0%B5%D0%BC%D1%8B_%D1%85%D1%80%D0%B0%D0%BD%D0%B5%D0%BD%D0%B8%D1%8F/redis_memcached/screenshots/4.jpg)
-
+![Ответ](https://github.com/snprykin/homework/blob/main/%D0%A1%D0%B8%D1%82%D0%B5%D0%BC%D1%8B_%D1%85%D1%80%D0%B0%D0%BD%D0%B5%D0%BD%D0%B8%D1%8F/redis_memcached/screenshots/4.jpg)
 
