@@ -81,7 +81,7 @@ ORDER BY TABLE_NAME;
 |staff	        |staff_id           |
 |store	        |store_id           |  
 
-![Ответ](https://github.com/snprykin/homework/blob/main/%D0%A0%D0%B5%D0%BB%D1%8F%D1%86%D0%B8%D0%BE%D0%BD%D0%BD%D1%8B%D0%B5%20%D0%B1%D0%B0%D0%B7%D1%8B%20%D0%B4%D0%B0%D0%BD%D0%BD%D1%8B%D1%85/sql/screenshots8.png)
+![Ответ](https://github.com/snprykin/homework/blob/main/%D0%A0%D0%B5%D0%BB%D1%8F%D1%86%D0%B8%D0%BE%D0%BD%D0%BD%D1%8B%D0%B5%20%D0%B1%D0%B0%D0%B7%D1%8B%20%D0%B4%D0%B0%D0%BD%D0%BD%D1%8B%D1%85/sql/screenshots/8.png)
 
 ---
 
@@ -90,6 +90,6 @@ ORDER BY TABLE_NAME;
 REVOKE INSERT, UPDATE, DELETE ON sakila.* FROM 'sys_temp'@'%';  
 FLUSH PRIVILEGES;  
 
-![Ответ](https://github.com/snprykin/homework/blob/main/%D0%A0%D0%B5%D0%BB%D1%8F%D1%86%D0%B8%D0%BE%D0%BD%D0%BD%D1%8B%D0%B5%20%D0%B1%D0%B0%D0%B7%D1%8B%20%D0%B4%D0%B0%D0%BD%D0%BD%D1%8B%D1%85/sql/screenshots9.png)
+![Ответ](https://github.com/snprykin/homework/blob/main/%D0%A0%D0%B5%D0%BB%D1%8F%D1%86%D0%B8%D0%BE%D0%BD%D0%BD%D1%8B%D0%B5%20%D0%B1%D0%B0%D0%B7%D1%8B%20%D0%B4%D0%B0%D0%BD%D0%BD%D1%8B%D1%85/sql/screenshots/9.png)
 
 
