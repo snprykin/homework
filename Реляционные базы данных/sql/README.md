@@ -2,38 +2,56 @@
 
 ## Задание 1
 ### 1.1
+
 ![Ответ](https://github.com/snprykin/homework/blob/main/%D0%A0%D0%B5%D0%BB%D1%8F%D1%86%D0%B8%D0%BE%D0%BD%D0%BD%D1%8B%D0%B5%20%D0%B1%D0%B0%D0%B7%D1%8B%20%D0%B4%D0%B0%D0%BD%D0%BD%D1%8B%D1%85/sql/screenshots/1.png)
+
 ### 1.2
+
 CREATE USER 'sys_temp'@'localhost' IDENTIFIED BY 'Pass123';
 
 ### 1.3
+
 ![Ответ](https://github.com/snprykin/homework/blob/main/%D0%A0%D0%B5%D0%BB%D1%8F%D1%86%D0%B8%D0%BE%D0%BD%D0%BD%D1%8B%D0%B5%20%D0%B1%D0%B0%D0%B7%D1%8B%20%D0%B4%D0%B0%D0%BD%D0%BD%D1%8B%D1%85/sql/screenshots/2.png)
+
 ### 1.4
+
 GRANT ALL PRIVILEGES ON *.* TO 'sys_temp'@'%' WITH GRANT OPTION;  
 FLUSH PRIVILEGES;
+
 ### 1.5
+
 ![Ответ](https://github.com/snprykin/homework/blob/main/%D0%A0%D0%B5%D0%BB%D1%8F%D1%86%D0%B8%D0%BE%D0%BD%D0%BD%D1%8B%D0%B5%20%D0%B1%D0%B0%D0%B7%D1%8B%20%D0%B4%D0%B0%D0%BD%D0%BD%D1%8B%D1%85/sql/screenshots3.png)
+
 ### 1.6
+
 docker exec -it mysql8 mysql -u sys_test -p  
-![Ответ](https://github.com/snprykin/homework/blob/main/%D0%A0%D0%B5%D0%BB%D1%8F%D1%86%D0%B8%D0%BE%D0%BD%D0%BD%D1%8B%D0%B5%20%D0%B1%D0%B0%D0%B7%D1%8B%20%D0%B4%D0%B0%D0%BD%D0%BD%D1%8B%D1%85/sql/screenshots/4.png)
-ALTER USER 'sys_test'@'localhost' IDENTIFIED WITH mysql_native_password BY 'password';    
+
+![Ответ](https://github.com/snprykin/homework/blob/main/%D0%A0%D0%B5%D0%BB%D1%8F%D1%86%D0%B8%D0%BE%D0%BD%D0%BD%D1%8B%D0%B5%20%D0%B1%D0%B0%D0%B7%D1%8B%20%D0%B4%D0%B0%D0%BD%D0%BD%D1%8B%D1%85/sql/screenshots/4.png)  
+
+ALTER USER 'sys_test'@'localhost' IDENTIFIED WITH mysql_native_password BY 'password';      
 ERROR 1396 (HY000): Operation ALTER USER failed for 'sys_test'@'localhost'  
 CREATE USER 'sys_test'@'localhost' IDENTIFIED BY 'password';  
+
 ![Ответ](https://github.com/snprykin/homework/blob/main/%D0%A0%D0%B5%D0%BB%D1%8F%D1%86%D0%B8%D0%BE%D0%BD%D0%BD%D1%8B%D0%B5%20%D0%B1%D0%B0%D0%B7%D1%8B%20%D0%B4%D0%B0%D0%BD%D0%BD%D1%8B%D1%85/sql/screenshots/5.png)
+
 ### 1.7
-docker cp sakila-schema.sql mysql8:/tmp/  
-docker cp sakila-data.sql mysql8:/tmp/  
-SOURCE /tmp/sakila-schema.sql;  
-mysql> SOURCE /tmp/sakila-data.sql;
+
+docker cp sakila-schema.sql mysql8:/tmp/    
+docker cp sakila-data.sql mysql8:/tmp/    
+SOURCE /tmp/sakila-schema.sql;    
+mysql> SOURCE /tmp/sakila-data.sql;  
 
 ![Ответ](https://github.com/snprykin/homework/blob/main/%D0%A0%D0%B5%D0%BB%D1%8F%D1%86%D0%B8%D0%BE%D0%BD%D0%BD%D1%8B%D0%B5%20%D0%B1%D0%B0%D0%B7%D1%8B%20%D0%B4%D0%B0%D0%BD%D0%BD%D1%8B%D1%85/sql/screenshots/6.png)
+
 ### 1.8
+
 SHOW TABLES;
 ![Ответ](https://github.com/snprykin/homework/blob/main/%D0%A0%D0%B5%D0%BB%D1%8F%D1%86%D0%B8%D0%BE%D0%BD%D0%BD%D1%8B%D0%B5%20%D0%B1%D0%B0%D0%B7%D1%8B%20%D0%B4%D0%B0%D0%BD%D0%BD%D1%8B%D1%85/sql/screenshots/7.png)
 
 ---
 
 ## Задание 2
+
 SELECT 
     TABLE_NAME AS 'Таблица',
     GROUP_CONCAT(COLUMN_NAME ORDER BY ORDINAL_POSITION) AS 'Первичный ключ'
@@ -41,7 +59,7 @@ FROM INFORMATION_SCHEMA.KEY_COLUMN_USAGE
 WHERE TABLE_SCHEMA = 'sakila' 
     AND CONSTRAINT_NAME = 'PRIMARY'
 GROUP BY TABLE_NAME
-ORDER BY TABLE_NAME;
+ORDER BY TABLE_NAME;  
 
 |Table	        | Primary_Key       |
 |:--------------|:------------------|
@@ -60,13 +78,17 @@ ORDER BY TABLE_NAME;
 |payment	    |payment_id         |
 |rental	        |rental_id          |
 |staff	        |staff_id           |
-|store	        |store_id           |
+|store	        |store_id           |  
+
 ![Ответ](https://github.com/snprykin/homework/blob/main/%D0%A0%D0%B5%D0%BB%D1%8F%D1%86%D0%B8%D0%BE%D0%BD%D0%BD%D1%8B%D0%B5%20%D0%B1%D0%B0%D0%B7%D1%8B%20%D0%B4%D0%B0%D0%BD%D0%BD%D1%8B%D1%85/sql/screenshots8.png)
+
 ---
 
 ## Задание 3
+
 REVOKE INSERT, UPDATE, DELETE ON sakila.* FROM 'sys_temp'@'%';  
 FLUSH PRIVILEGES;  
+
 ![Ответ](https://github.com/snprykin/homework/blob/main/%D0%A0%D0%B5%D0%BB%D1%8F%D1%86%D0%B8%D0%BE%D0%BD%D0%BD%D1%8B%D0%B5%20%D0%B1%D0%B0%D0%B7%D1%8B%20%D0%B4%D0%B0%D0%BD%D0%BD%D1%8B%D1%85/sql/screenshots9.png)
 
 
