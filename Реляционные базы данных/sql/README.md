@@ -45,7 +45,8 @@ mysql> SOURCE /tmp/sakila-data.sql;
 
 ### 1.8
 
-SHOW TABLES;
+SHOW TABLES;  
+
 ![Ответ](https://github.com/snprykin/homework/blob/main/%D0%A0%D0%B5%D0%BB%D1%8F%D1%86%D0%B8%D0%BE%D0%BD%D0%BD%D1%8B%D0%B5%20%D0%B1%D0%B0%D0%B7%D1%8B%20%D0%B4%D0%B0%D0%BD%D0%BD%D1%8B%D1%85/sql/screenshots/7.png)
 
 ---
