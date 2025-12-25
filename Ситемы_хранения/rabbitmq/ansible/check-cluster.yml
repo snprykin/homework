@@ -1,0 +1,13 @@
+---
+- name: Проверка статуса кластера RabbitMQ
+  hosts: rabbitmq_nodes
+  tasks:
+    - name: Проверка статуса кластера
+      become: yes
+      command: rabbitmqctl cluster_status
+      register: cluster_status
+      changed_when: false
+
+    - name: Вывод статуса кластера
+      debug:
+        msg: "Статус кластера на {{ inventory_hostname }}: {{ cluster_status.stdout }}"
