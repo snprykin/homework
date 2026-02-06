@@ -84,7 +84,62 @@ Master-Master — для отказоустойчивости записи и г
 
 ## Задание 2
 
-![Ответ](https://github.com/snprykin/homework/blob/main/%D0%A0%D0%B5%D0%BB%D1%8F%D1%86%D0%B8%D0%BE%D0%BD%D0%BD%D1%8B%D0%B5%20%D0%B1%D0%B0%D0%B7%D1%8B%20%D0%B4%D0%B0%D0%BD%D0%BD%D1%8B%D1%85/sql/screenshots/8.png)
+### Docker-compose.yml
+	version: '3.8'
+
+	services:
+	 mysql-master:
+    	 image: mysql:8.0
+    	 container_name: mysql-master
+    	 environment:
+	  MYSQL_ROOT_PASSWORD: root123
+	  MYSQL_DATABASE: university
+	  MYSQL_USER: replica_user
+	  MYSQL_PASSWORD: replica123
+	 ports:
+	  - "3306:3306"
+	 volumes:
+	  - master-data:/var/lib/mysql
+	  - ./master-config/my.cnf:/etc/mysql/conf.d/my.cnf
+    	 networks:
+	  - mysql-net
+    	 command: 
+	  - --server-id=1
+	  - --log-bin=mysql-bin
+	  - --binlog-format=ROW
+	  - --loose-group-replication-local-address=mysql-master:6606
+
+	mysql-slave:
+    	 image: mysql:8.0
+    	 container_name: mysql-slave
+    	 environment:
+	   MYSQL_ROOT_PASSWORD: root123
+    	 ports:
+          - "3307:3306"
+    	 volumes:
+          - slave-data:/var/lib/mysql
+          - ./slave-config/my.cnf:/etc/mysql/conf.d/my.cnf
+    	 depends_on:
+          - mysql-master
+    	 networks:
+          - mysql-net
+    	 command: 
+          - --server-id=2
+          - --log-bin=mysql-bin
+          - --relay-log=mysql-relay-bin
+          - --read-only=1
+          - --loose-group-replication-local-address=mysql-slave:6606
+
+	volumes:
+	  master-data:
+	  slave-data:
+
+	networks:
+	  mysql-net:
+          driver: bridge
+
+
+![Ответ](https://github.com/snprykin/homework/blob/main/%D0%A0%D0%B5%D0%BB%D1%8F%D1%86%D0%B8%D0%BE%D0%BD%D0%BD%D1%8B%D0%B5%20%D0%B1%D0%B0%D0%B7%D1%8B%20%D0%B4%D0%B0%D0%BD%D0%BD%D1%8B%D1%85/replic_part1/screenshots/1.png)
 
 
 
