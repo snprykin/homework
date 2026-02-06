@@ -83,7 +83,7 @@ Master-Master — для отказоустойчивости записи и г
 ---
 
 ## Задание 2
-
+### Выполните конфигурацию master-slave репликации
 ### Docker-compose.yml
 	version: '3.8'
 
