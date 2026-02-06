@@ -2,7 +2,7 @@
 
 ## Задание 1
 
-1. Master-Slave (Ведущий-ведомый) - Классическая репликация
+### 1. Master-Slave (Ведущий-ведомый) - Классическая репликация
 	Основная идея: Один узел (master) принимает операции записи и чтения, а один или несколько узлов (slave) реплицируют данные с мастера для операций чтения.
 	Как это работает:
 	Master (ведущий): Обрабатывает все операции записи (INSERT, UPDATE, DELETE). Все изменения записываются в его бинарный лог (binlog, WAL).
@@ -20,7 +20,7 @@
 	Не масштабирует запись: Все операции записи идут через один узел.
 	Идеальный случай: Приложения, где чтение значительно превышает запись (например, блоги, новостные сайты, каталоги товаров).
 
-2. Master-Master (или Multi-Master) - Двунаправленная репликация
+### 2. Master-Master (или Multi-Master) - Двунаправленная репликация
 	Основная идея: Два или более узла могут принимать операции записи и чтения. Изменения, сделанные на любом из узлов, реплицируются на все остальные.
 	Как это работает:
 	Каждый узел является одновременно и мастером (для своих клиентов) и слейвом (получает изменения от других мастеров).
@@ -37,52 +37,23 @@
 	Риск расходящихся данных: При некорректной обработке конфликтов данные на узлах могут разойтись.
 	Часто не дает выигрыша в производительности: Накладные расходы на разрешение конфликтов и двустороннюю репликацию могут "съесть" выгоду.
 
-![Ответ](https://github.com/snprykin/homework/blob/main/%D0%A0%D0%B5%D0%BB%D1%8F%D1%86%D0%B8%D0%BE%D0%BD%D0%BD%D1%8B%D0%B5%20%D0%B1%D0%B0%D0%B7%D1%8B%20%D0%B4%D0%B0%D0%BD%D0%BD%D1%8B%D1%85/sql/screenshots/1.png)
+### 3. Основные различия Master-Slave (Primary-Replica) и Master-Master (Multi-Primary):
 
-### 1.2
-
-CREATE USER 'sys_temp'@'localhost' IDENTIFIED BY 'Pass123';
-
-### 1.3
-
-![Ответ](https://github.com/snprykin/homework/blob/main/%D0%A0%D0%B5%D0%BB%D1%8F%D1%86%D0%B8%D0%BE%D0%BD%D0%BD%D1%8B%D0%B5%20%D0%B1%D0%B0%D0%B7%D1%8B%20%D0%B4%D0%B0%D0%BD%D0%BD%D1%8B%D1%85/sql/screenshots/2.png)
-
-### 1.4
-
-GRANT ALL PRIVILEGES ON *.* TO 'sys_temp'@'%' WITH GRANT OPTION;  
-FLUSH PRIVILEGES;
-
-### 1.5
-
-![Ответ](https://github.com/snprykin/homework/blob/main/%D0%A0%D0%B5%D0%BB%D1%8F%D1%86%D0%B8%D0%BE%D0%BD%D0%BD%D1%8B%D0%B5%20%D0%B1%D0%B0%D0%B7%D1%8B%20%D0%B4%D0%B0%D0%BD%D0%BD%D1%8B%D1%85/sql/screenshots/3.png)
-
-### 1.6
-
-docker exec -it mysql8 mysql -u sys_test -p  
-
-![Ответ](https://github.com/snprykin/homework/blob/main/%D0%A0%D0%B5%D0%BB%D1%8F%D1%86%D0%B8%D0%BE%D0%BD%D0%BD%D1%8B%D0%B5%20%D0%B1%D0%B0%D0%B7%D1%8B%20%D0%B4%D0%B0%D0%BD%D0%BD%D1%8B%D1%85/sql/screenshots/4.png)  
-
-ALTER USER 'sys_test'@'localhost' IDENTIFIED WITH mysql_native_password BY 'password';      
-ERROR 1396 (HY000): Operation ALTER USER failed for 'sys_test'@'localhost'  
-CREATE USER 'sys_test'@'localhost' IDENTIFIED BY 'password';  
-
-![Ответ](https://github.com/snprykin/homework/blob/main/%D0%A0%D0%B5%D0%BB%D1%8F%D1%86%D0%B8%D0%BE%D0%BD%D0%BD%D1%8B%D0%B5%20%D0%B1%D0%B0%D0%B7%D1%8B%20%D0%B4%D0%B0%D0%BD%D0%BD%D1%8B%D1%85/sql/screenshots/5.png)
-
-### 1.7
-
-docker cp sakila-schema.sql mysql8:/tmp/    
-docker cp sakila-data.sql mysql8:/tmp/    
-SOURCE /tmp/sakila-schema.sql;    
-mysql> SOURCE /tmp/sakila-data.sql;  
-
-![Ответ](https://github.com/snprykin/homework/blob/main/%D0%A0%D0%B5%D0%BB%D1%8F%D1%86%D0%B8%D0%BE%D0%BD%D0%BD%D1%8B%D0%B5%20%D0%B1%D0%B0%D0%B7%D1%8B%20%D0%B4%D0%B0%D0%BD%D0%BD%D1%8B%D1%85/sql/screenshots/6.png)
-
-### 1.8
-
-SHOW TABLES;  
-
-![Ответ](https://github.com/snprykin/homework/blob/main/%D0%A0%D0%B5%D0%BB%D1%8F%D1%86%D0%B8%D0%BE%D0%BD%D0%BD%D1%8B%D0%B5%20%D0%B1%D0%B0%D0%B7%D1%8B%20%D0%B4%D0%B0%D0%BD%D0%BD%D1%8B%D1%85/sql/screenshots/7.png)
-
+	Запись данных:
+		Master-Slave: Только на одном узле (master/primary).
+		Master-Master: На нескольких узлах одновременно.
+	Точка отказа:
+		Master-Slave: Master — единая точка отказа для операций записи.
+		Master-Master: Нет единой точки отказа для записи (один узел может упасть).
+	Главная проблема:
+		Master-Slave: Задержка репликации (данные на репликах могут быть устаревшими).
+		Master-Master: Конфликты данных (риск повреждения при одновременной записи в одно место с разных узлов).
+	Сложность:
+		Master-Slave: Относительно проста.
+		Master-Master: Крайне сложна в настройке и поддержке из-за конфликтов.
+	Проще говоря:
+		Master-Slave — для масштабирования чтения и резервирования.
+		Master-Master — для отказоустойчивости записи и географического распределения, но ценой сложности и риска конфликтов.
 ---
 
 ## Задание 2
