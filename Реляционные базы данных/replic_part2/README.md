@@ -78,47 +78,8 @@ master-сервер и несколько slave-серверов;
 
 Схема разбиения
 
-                     ШАРДИРОВАННАЯ АРХИТЕКТУРА                   
+![1](https://github.com/snprykin/homework/blob/main/%D0%A0%D0%B5%D0%BB%D1%8F%D1%86%D0%B8%D0%BE%D0%BD%D0%BD%D1%8B%D0%B5%20%D0%B1%D0%B0%D0%B7%D1%8B%20%D0%B4%D0%B0%D0%BD%D0%BD%D1%8B%D1%85/replic_part1/screenshots/1.png)
 
-                                                                 
-   ┌─────────────────┐    ┌─────────────────┐    ┌──────────────┐
-   │  Gateway /      │    │  Конфигуратор   │    │  Мониторинг  │
-   │  Router         │◄──►│  шардов         │◄──►│ и            │
-   │                 │    │  (Shard Map)    │    │  балансировка│
-   └────────┬────────┘    └─────────────────┘    └──────────────┘
-            │                                                    
-            ▼                                                    
-   ┌──────────────────────────────────────────────────────┐      
-   │              ВЕРТИКАЛЬНОЕ РАЗДЕЛЕНИЕ                 │      
-   │        (разные типы данных на разные серверы)        │      
-   └──────────────────────────────────────────────────────┘      
-                                                                 
-   ┌──────────── ─┐  ┌─────────────┐  ┌──────────────┐           
-   │  Кластер     │  │  Кластер    │  │  Кластер     │           
-   │  ПОЛЬЗОВАТЕЛИ│  │  КНИГИ      │  │  МАГАЗИНЫ    │           
-   │              │  │             │  │              │           
-   └──────┬────── ┘  └──────┬──────┘  └──────┬───────┘           
-          │                 │                │                   
-          ▼                 ▼                ▼                   
-   ┌──────────── ─┐  ┌───────────── ┐  ┌──────────────┐          
-   │ГОРИЗОНТАЛЬНОЕ│  │ГОРИЗОНТАЛЬНОЕ│  │ГОРИЗОНТАЛЬНОЕ│          
-   │ РАЗДЕЛЕНИЕ   │  │ РАЗДЕЛЕНИЕ   │  │ РАЗДЕЛЕНИЕ   │          
-   └───────────── ┘  └───────────── ┘  └──────────────┘          
-          │                │                │                    
-   ┌──────┴──────┐  ┌──────┴──────┐  ┌──────┴───────┐            
-   │ Шард U1     │  │ Шард B1     │  │ Шард S1      │            
-   │ (user_id    │  │ (жанр:      │  │ (регион:     │            
-   │  1-500k)    │  │  фантастика)│  │  Европа)     │            
-   ├─────────────┤  ├─────────────┤  ├──────────────┤            
-   │ Шард U2     │  │ Шард B2     │  │ Шард S2      │            
-   │ (user_id    │  │ (жанр:      │  │ (регион:     │            
-   │  500k-1M)   │  │  детективы) │  │  Азия)       │            
-   ├─────────────┤  ├─────────────┤  ├──────────────┤            
-   │ Шард U3     │  │ Шард B3     │  │ Шард S3      │       
-   │ (user_id    │  │ (жанр:      │  │ (регион:     │       
-   │  1M-1.5M)   │  │  nonfiction)│  │  Америка)    │       
-   └─────────────┘  └─────────────┘  └──────────────┘       
-                                                           
 ### Детализация разбиения
 1. Кластер "Пользователи" (вертикальный шард)
 Таблицы:
@@ -170,20 +131,9 @@ master-сервер и несколько slave-серверов;
 3. Шарды данных (каждый кластер)
 
 Шард Xn:
-    ┌─────────────┐
-    │   Master    │ ← Активный (чтение/запись)
-    │  (primary)  │
-    └──────┬──────┘
-           │ Синхронная репликация
-    ┌──────┴──────┐
-    │   Slave 1   │ ← Пассивный (только чтение, hot standby)
-    │   (sync)    │
-    └──────┬──────┘
-           │ Асинхронная репликация
-    ┌──────┴──────┐
-    │   Slave 2   │ ← Пассивный (только чтение, backup)
-    │   (async)   │
-    └─────────────┘
+
+![2](https://github.com/snprykin/homework/blob/main/%D0%A0%D0%B5%D0%BB%D1%8F%D1%86%D0%B8%D0%BE%D0%BD%D0%BD%D1%8B%D0%B5%20%D0%B1%D0%B0%D0%B7%D1%8B%20%D0%B4%D0%B0%D0%BD%D0%BD%D1%8B%D1%85/replic_part1/screenshots/1.png)
+
 
 4. Сервис мониторинга и балансировки
 Режим: Активный-активный
@@ -232,23 +182,8 @@ master-сервер и несколько slave-серверов;
  Высокая доступность и отказоустойчивость
  Эффективное использование ресурсов
 
-![1](https://github.com/snprykin/homework/blob/main/%D0%A0%D0%B5%D0%BB%D1%8F%D1%86%D0%B8%D0%BE%D0%BD%D0%BD%D1%8B%D0%B5%20%D0%B1%D0%B0%D0%B7%D1%8B%20%D0%B4%D0%B0%D0%BD%D0%BD%D1%8B%D1%85/replic_part1/screenshots/1.png)
 
-![Ответ](https://github.com/snprykin/homework/blob/main/%D0%A0%D0%B5%D0%BB%D1%8F%D1%86%D0%B8%D0%BE%D0%BD%D0%BD%D1%8B%D0%B5%20%D0%B1%D0%B0%D0%B7%D1%8B%20%D0%B4%D0%B0%D0%BD%D0%BD%D1%8B%D1%85/replic_part1/screenshots/2.png)
-
-![Ответ](https://github.com/snprykin/homework/blob/main/%D0%A0%D0%B5%D0%BB%D1%8F%D1%86%D0%B8%D0%BE%D0%BD%D0%BD%D1%8B%D0%B5%20%D0%B1%D0%B0%D0%B7%D1%8B%20%D0%B4%D0%B0%D0%BD%D0%BD%D1%8B%D1%85/replic_part1/screenshots/3.png)
-
-![Ответ](https://github.com/snprykin/homework/blob/main/%D0%A0%D0%B5%D0%BB%D1%8F%D1%86%D0%B8%D0%BE%D0%BD%D0%BD%D1%8B%D0%B5%20%D0%B1%D0%B0%D0%B7%D1%8B%20%D0%B4%D0%B0%D0%BD%D0%BD%D1%8B%D1%85/replic_part1/screenshots/4.png)
-
-![Ответ](https://github.com/snprykin/homework/blob/main/%D0%A0%D0%B5%D0%BB%D1%8F%D1%86%D0%B8%D0%BE%D0%BD%D0%BD%D1%8B%D0%B5%20%D0%B1%D0%B0%D0%B7%D1%8B%20%D0%B4%D0%B0%D0%BD%D0%BD%D1%8B%D1%85/replic_part1/screenshots/5.png)
-
-![Ответ](https://github.com/snprykin/homework/blob/main/%D0%A0%D0%B5%D0%BB%D1%8F%D1%86%D0%B8%D0%BE%D0%BD%D0%BD%D1%8B%D0%B5%20%D0%B1%D0%B0%D0%B7%D1%8B%20%D0%B4%D0%B0%D0%BD%D0%BD%D1%8B%D1%85/replic_part1/screenshots/6.png)
-
-![Ответ](https://github.com/snprykin/homework/blob/main/%D0%A0%D0%B5%D0%BB%D1%8F%D1%86%D0%B8%D0%BE%D0%BD%D0%BD%D1%8B%D0%B5%20%D0%B1%D0%B0%D0%B7%D1%8B%20%D0%B4%D0%B0%D0%BD%D0%BD%D1%8B%D1%85/replic_part1/screenshots/7.png)
-
-![Ответ](https://github.com/snprykin/homework/blob/main/%D0%A0%D0%B5%D0%BB%D1%8F%D1%86%D0%B8%D0%BE%D0%BD%D0%BD%D1%8B%D0%B5%20%D0%B1%D0%B0%D0%B7%D1%8B%20%D0%B4%D0%B0%D0%BD%D0%BD%D1%8B%D1%85/replic_part1/screenshots/8.png)
-
-![Ответ](https://github.com/snprykin/homework/blob/main/%D0%A0%D0%B5%D0%BB%D1%8F%D1%86%D0%B8%D0%BE%D0%BD%D0%BD%D1%8B%D0%B5%20%D0%B1%D0%B0%D0%B7%D1%8B%20%D0%B4%D0%B0%D0%BD%D0%BD%D1%8B%D1%85/replic_part1/screenshots/9.png)
+![2](https://github.com/snprykin/homework/blob/main/%D0%A0%D0%B5%D0%BB%D1%8F%D1%86%D0%B8%D0%BE%D0%BD%D0%BD%D1%8B%D0%B5%20%D0%B1%D0%B0%D0%B7%D1%8B%20%D0%B4%D0%B0%D0%BD%D0%BD%D1%8B%D1%85/replic_part1/screenshots/2.png)
 
 
 
