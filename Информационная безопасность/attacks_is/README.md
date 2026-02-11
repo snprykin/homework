@@ -26,19 +26,19 @@
 Уязвимость №1: vsftpd 2.3.4 — Backdoor Command Execution  
 Порт: 21/tcp  
 Описание: В версии vsftpd 2.3.4 присутствует бэкдор, активируемый при отправке символа :) в поле USER. После подключения к порту 6200 открывается root shell.  
-Exploit-DB: [1](https://www.exploit-db.com/exploits/17491)  
+Exploit-DB: https://www.exploit-db.com/exploits/17491 [Ссылка](https://www.exploit-db.com/exploits/17491)  
 Метод: vsftpd 2.3.4 - Backdoor Command Execution  
 
 Уязвимость №2: UnrealIRCd 3.2.8.1 — Backdoor Command Execution  
 Порт: 6667/tcp, 6697/tcp  
 Описание: Версия UnrealIRCd 3.2.8.1 содержит троянизированный бэкдор в коде. При отправке команды AB через сервер возможна удалённая отправка системных команд.  
-Exploit-DB: [2](https://www.exploit-db.com/exploits/16922)  
+Exploit-DB: https://www.exploit-db.com/exploits/16922 [Сылка](https://www.exploit-db.com/exploits/16922)  
 Метод: UnrealIRCd 3.2.8.1 - Backdoor Command Execution  
 
 Уязвимость №3: distccd v1 — Command Execution (CVE-2004-2687)  
 Порт: 3632/tcp  
 Описание: distccd в версиях до 2.18.3 не требует аутентификации. Злоумышленник может подключиться и выполнить произвольные команды с правами пользователя distccd.  
-Exploit-DB: [3](https://www.exploit-db.com/exploits/9915)  
+Exploit-DB: https://www.exploit-db.com/exploits/9915 [Сылка](https://www.exploit-db.com/exploits/9915)  
 Метод: distccd v1 - Remote Code Execution  
 
 
@@ -46,9 +46,11 @@ Exploit-DB: [3](https://www.exploit-db.com/exploits/9915)
 
 ### Задание 2
 
-Установите поддержку LUKS.  
-Создайте небольшой раздел, например, 100 Мб.  
-Зашифруйте созданный раздел с помощью LUKS.  
+Проведите сканирование Metasploitable в режимах SYN, FIN, Xmas, UDP.  
+Запишите сеансы сканирования в Wireshark.  
+Ответьте на следующие вопросы:  
+Чем отличаются эти режимы сканирования с точки зрения сетевого трафика?  
+Как отвечает сервер?  
 
 ### Решение
 
