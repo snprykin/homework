@@ -32,13 +32,13 @@ Exploit-DB: https://www.exploit-db.com/exploits/17491
 Уязвимость №2: UnrealIRCd 3.2.8.1 — Backdoor Command Execution  
 Порт: 6667/tcp, 6697/tcp  
 Описание: Версия UnrealIRCd 3.2.8.1 содержит троянизированный бэкдор в коде. При отправке команды AB через сервер возможна удалённая отправка системных команд.  
-Exploit-DB: https://www.exploit-db.com/exploits/16922 [Сылка](https://www.exploit-db.com/exploits/16922)  
+Exploit-DB: https://www.exploit-db.com/exploits/16922  
 Метод: UnrealIRCd 3.2.8.1 - Backdoor Command Execution  
 
 Уязвимость №3: distccd v1 — Command Execution (CVE-2004-2687)  
 Порт: 3632/tcp  
 Описание: distccd в версиях до 2.18.3 не требует аутентификации. Злоумышленник может подключиться и выполнить произвольные команды с правами пользователя distccd.  
-Exploit-DB: https://www.exploit-db.com/exploits/9915 [Сылка](https://www.exploit-db.com/exploits/9915)  
+Exploit-DB: https://www.exploit-db.com/exploits/9915  
 Метод: distccd v1 - Remote Code Execution  
 
 
