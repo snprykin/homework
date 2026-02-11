@@ -14,12 +14,12 @@
 Какие уязвимости были вами обнаружены? (список со ссылками: достаточно трёх уязвимостей)  
 ### Решение
 
-![1](https://github.com/snprykin/homework/blob/main/%D0%98%D0%BD%D1%84%D0%BE%D1%80%D0%BC%D0%B0%D1%86%D0%B8%D0%BE%D0%BD%D0%BD%D0%B0%D1%8F%20%D0%B1%D0%B5%D0%B7%D0%BE%D0%BF%D0%B0%D1%81%D0%BD%D0%BE%D1%81%D1%82%D1%8C/host_protection/screenshots/1.png)
+![1](https://github.com/snprykin/homework/blob/main/%D0%98%D0%BD%D1%84%D0%BE%D1%80%D0%BC%D0%B0%D1%86%D0%B8%D0%BE%D0%BD%D0%BD%D0%B0%D1%8F%20%D0%B1%D0%B5%D0%B7%D0%BE%D0%BF%D0%B0%D1%81%D0%BD%D0%BE%D1%81%D1%82%D1%8C/attacks_is/screenshots/1.jpg)
 
 На целевой системе открыто 30 сетевых портов.  
 Ниже приведён список служб и портов:
 
-![2](https://github.com/snprykin/homework/blob/main/%D0%98%D0%BD%D1%84%D0%BE%D1%80%D0%BC%D0%B0%D1%86%D0%B8%D0%BE%D0%BD%D0%BD%D0%B0%D1%8F%20%D0%B1%D0%B5%D0%B7%D0%BE%D0%BF%D0%B0%D1%81%D0%BD%D0%BE%D1%81%D1%82%D1%8C/host_protection/screenshots/2.png)  
+![2](https://github.com/snprykin/homework/blob/main/%D0%98%D0%BD%D1%84%D0%BE%D1%80%D0%BC%D0%B0%D1%86%D0%B8%D0%BE%D0%BD%D0%BD%D0%B0%D1%8F%20%D0%B1%D0%B5%D0%B7%D0%BE%D0%BF%D0%B0%D1%81%D0%BD%D0%BE%D1%81%D1%82%D1%8C/attacks_is/screenshots/2.jpg)
 
 
 Обнаруженные уязвимости (3 шт. со ссылками Exploit-DB)  
@@ -60,16 +60,8 @@ Exploit-DB: [3](https://www.exploit-db.com/exploits/9915)
 |Xmas|TCP-пакет с флагами FIN, PSH, URG (как елка)|Нет ответа|RST/ACK|Нет ответа или ICMP unreachable|Пакет аномальный, все три флага установлены в 1|
 |UDP|Пустой UDP-пакет (или с полезной нагрузкой)|Ответ UDP (зависит от службы)|ICMP Port Unreachable (type 3, code 3)|Нет ответа или другой ICMP (type 3, code 1,2,9,10,13)|В ответ на закрытый порт приходит ICMP-пакет от целевой системы|
 
-
-
-
-![5](https://github.com/snprykin/homework/blob/main/%D0%98%D0%BD%D1%84%D0%BE%D1%80%D0%BC%D0%B0%D1%86%D0%B8%D0%BE%D0%BD%D0%BD%D0%B0%D1%8F%20%D0%B1%D0%B5%D0%B7%D0%BE%D0%BF%D0%B0%D1%81%D0%BD%D0%BE%D1%81%D1%82%D1%8C/host_protection/screenshots/5.png)
-
-![6](https://github.com/snprykin/homework/blob/main/%D0%98%D0%BD%D1%84%D0%BE%D1%80%D0%BC%D0%B0%D1%86%D0%B8%D0%BE%D0%BD%D0%BD%D0%B0%D1%8F%20%D0%B1%D0%B5%D0%B7%D0%BE%D0%BF%D0%B0%D1%81%D0%BD%D0%BE%D1%81%D1%82%D1%8C/host_protection/screenshots/6.png)
-
-![7](https://github.com/snprykin/homework/blob/main/%D0%98%D0%BD%D1%84%D0%BE%D1%80%D0%BC%D0%B0%D1%86%D0%B8%D0%BE%D0%BD%D0%BD%D0%B0%D1%8F%20%D0%B1%D0%B5%D0%B7%D0%BE%D0%BF%D0%B0%D1%81%D0%BD%D0%BE%D1%81%D1%82%D1%8C/host_protection/screenshots/7.png)
-
-![8](https://github.com/snprykin/homework/blob/main/%D0%98%D0%BD%D1%84%D0%BE%D1%80%D0%BC%D0%B0%D1%86%D0%B8%D0%BE%D0%BD%D0%BD%D0%B0%D1%8F%20%D0%B1%D0%B5%D0%B7%D0%BE%D0%BF%D0%B0%D1%81%D0%BD%D0%BE%D1%81%D1%82%D1%8C/host_protection/screenshots/8.png)
-
-![9](https://github.com/snprykin/homework/blob/main/%D0%98%D0%BD%D1%84%D0%BE%D1%80%D0%BC%D0%B0%D1%86%D0%B8%D0%BE%D0%BD%D0%BD%D0%B0%D1%8F%20%D0%B1%D0%B5%D0%B7%D0%BE%D0%BF%D0%B0%D1%81%D0%BD%D0%BE%D1%81%D1%82%D1%8C/host_protection/screenshots/9.png)
-
+Metasploitable — это система на базе Linux. Поэтому реакция будет строго по RFC для BSD-стека:
+SYN: Ответит SYN/ACK на открытые порты, RST на закрытые.  
+FIN/Xmas: Ответит только RST на закрытые порты. На открытые порты ответа не будет.  
+UDP: Ответит ICMP Port Unreachable на большинство закрытых портов. На открытые порты (например, 53 — DNS, 161 — SNMP) придет специфичный для службы ответ  
+(если nmap отправил корректный запрос).
