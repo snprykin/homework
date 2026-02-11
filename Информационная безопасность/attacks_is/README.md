@@ -26,7 +26,7 @@
 Уязвимость №1: vsftpd 2.3.4 — Backdoor Command Execution  
 Порт: 21/tcp  
 Описание: В версии vsftpd 2.3.4 присутствует бэкдор, активируемый при отправке символа :) в поле USER. После подключения к порту 6200 открывается root shell.  
-Exploit-DB: https://www.exploit-db.com/exploits/17491 [Ссылка](https://www.exploit-db.com/exploits/17491)  
+Exploit-DB: https://www.exploit-db.com/exploits/17491  
 Метод: vsftpd 2.3.4 - Backdoor Command Execution  
 
 Уязвимость №2: UnrealIRCd 3.2.8.1 — Backdoor Command Execution  
