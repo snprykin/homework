@@ -1,0 +1,75 @@
+# Домашнее задание "Уязвимости и атаки на информационные системы" - `Прыкин Сергей`
+
+### Задание 1
+
+Скачайте и установите виртуальную машину Metasploitable: https://sourceforge.net/projects/metasploitable/.  
+Это типовая ОС для экспериментов в области информационной безопасности, с которой следует начать при анализе уязвимостей.  
+Просканируйте эту виртуальную машину, используя nmap.  
+Попробуйте найти уязвимости, которым подвержена эта виртуальная машина.  
+Сами уязвимости можно поискать на сайте https://www.exploit-db.com/.  
+Для этого нужно в поиске ввести название сетевой службы, обнаруженной на атакуемой машине, и выбрать подходящие по версии уязвимости.  
+
+Ответьте на следующие вопросы:
+Какие сетевые службы в ней разрешены?  
+Какие уязвимости были вами обнаружены? (список со ссылками: достаточно трёх уязвимостей)  
+### Решение
+
+![1](https://github.com/snprykin/homework/blob/main/%D0%98%D0%BD%D1%84%D0%BE%D1%80%D0%BC%D0%B0%D1%86%D0%B8%D0%BE%D0%BD%D0%BD%D0%B0%D1%8F%20%D0%B1%D0%B5%D0%B7%D0%BE%D0%BF%D0%B0%D1%81%D0%BD%D0%BE%D1%81%D1%82%D1%8C/host_protection/screenshots/1.png)
+
+На целевой системе открыто 30 сетевых портов.  
+Ниже приведён список служб и портов:
+
+![2](https://github.com/snprykin/homework/blob/main/%D0%98%D0%BD%D1%84%D0%BE%D1%80%D0%BC%D0%B0%D1%86%D0%B8%D0%BE%D0%BD%D0%BD%D0%B0%D1%8F%20%D0%B1%D0%B5%D0%B7%D0%BE%D0%BF%D0%B0%D1%81%D0%BD%D0%BE%D1%81%D1%82%D1%8C/host_protection/screenshots/2.png)  
+
+
+Обнаруженные уязвимости (3 шт. со ссылками Exploit-DB)  
+Уязвимость №1: vsftpd 2.3.4 — Backdoor Command Execution  
+Порт: 21/tcp  
+Описание: В версии vsftpd 2.3.4 присутствует бэкдор, активируемый при отправке символа :) в поле USER. После подключения к порту 6200 открывается root shell.  
+Exploit-DB: [1](https://www.exploit-db.com/exploits/17491)  
+Метод: vsftpd 2.3.4 - Backdoor Command Execution  
+
+Уязвимость №2: UnrealIRCd 3.2.8.1 — Backdoor Command Execution  
+Порт: 6667/tcp, 6697/tcp  
+Описание: Версия UnrealIRCd 3.2.8.1 содержит троянизированный бэкдор в коде. При отправке команды AB через сервер возможна удалённая отправка системных команд.  
+Exploit-DB: [2](https://www.exploit-db.com/exploits/16922)  
+Метод: UnrealIRCd 3.2.8.1 - Backdoor Command Execution  
+
+Уязвимость №3: distccd v1 — Command Execution (CVE-2004-2687)  
+Порт: 3632/tcp  
+Описание: distccd в версиях до 2.18.3 не требует аутентификации. Злоумышленник может подключиться и выполнить произвольные команды с правами пользователя distccd.  
+Exploit-DB: [3](https://www.exploit-db.com/exploits/9915)  
+Метод: distccd v1 - Remote Code Execution  
+
+
+---
+
+### Задание 2
+
+Установите поддержку LUKS.  
+Создайте небольшой раздел, например, 100 Мб.  
+Зашифруйте созданный раздел с помощью LUKS.  
+
+### Решение
+
+Сводная таблица отличий режимов сканирования
+|Режим сканирования (nmap)|Тип отправляемого пакета|Как отвечает открытый порт|Как отвечает закрытый порт|Как ведет себя фильтруемый порт|Особенность в Wireshark|
+|-------------------------|------------------------|--------------------------|--------------------------|-------------------------------|-----------------------|
+|SYN (полуоткрытое)|TCP-пакет с флагом SYN|SYN/ACK|RST/ACK|Нет ответа или ICMP (type 3, code 1,2,3,9,10,13)|Трехэтапное рукопожатие не завершается (нет финального ACK от сканера)|
+|FIN|TCP-пакет с флагом FIN (только FIN, без ACK)|Нет ответа (игнорируется)|RST/ACK|Нет ответа или ICMP unreachable|RFC 793: FIN-пакет без предварительного соединения. RST — признак закрытого порта|
+|Xmas|TCP-пакет с флагами FIN, PSH, URG (как елка)|Нет ответа|RST/ACK|Нет ответа или ICMP unreachable|Пакет аномальный, все три флага установлены в 1|
+|UDP|Пустой UDP-пакет (или с полезной нагрузкой)|Ответ UDP (зависит от службы)|ICMP Port Unreachable (type 3, code 3)|Нет ответа или другой ICMP (type 3, code 1,2,9,10,13)|В ответ на закрытый порт приходит ICMP-пакет от целевой системы|
+
+
+
+
+![5](https://github.com/snprykin/homework/blob/main/%D0%98%D0%BD%D1%84%D0%BE%D1%80%D0%BC%D0%B0%D1%86%D0%B8%D0%BE%D0%BD%D0%BD%D0%B0%D1%8F%20%D0%B1%D0%B5%D0%B7%D0%BE%D0%BF%D0%B0%D1%81%D0%BD%D0%BE%D1%81%D1%82%D1%8C/host_protection/screenshots/5.png)
+
+![6](https://github.com/snprykin/homework/blob/main/%D0%98%D0%BD%D1%84%D0%BE%D1%80%D0%BC%D0%B0%D1%86%D0%B8%D0%BE%D0%BD%D0%BD%D0%B0%D1%8F%20%D0%B1%D0%B5%D0%B7%D0%BE%D0%BF%D0%B0%D1%81%D0%BD%D0%BE%D1%81%D1%82%D1%8C/host_protection/screenshots/6.png)
+
+![7](https://github.com/snprykin/homework/blob/main/%D0%98%D0%BD%D1%84%D0%BE%D1%80%D0%BC%D0%B0%D1%86%D0%B8%D0%BE%D0%BD%D0%BD%D0%B0%D1%8F%20%D0%B1%D0%B5%D0%B7%D0%BE%D0%BF%D0%B0%D1%81%D0%BD%D0%BE%D1%81%D1%82%D1%8C/host_protection/screenshots/7.png)
+
+![8](https://github.com/snprykin/homework/blob/main/%D0%98%D0%BD%D1%84%D0%BE%D1%80%D0%BC%D0%B0%D1%86%D0%B8%D0%BE%D0%BD%D0%BD%D0%B0%D1%8F%20%D0%B1%D0%B5%D0%B7%D0%BE%D0%BF%D0%B0%D1%81%D0%BD%D0%BE%D1%81%D1%82%D1%8C/host_protection/screenshots/8.png)
+
+![9](https://github.com/snprykin/homework/blob/main/%D0%98%D0%BD%D1%84%D0%BE%D1%80%D0%BC%D0%B0%D1%86%D0%B8%D0%BE%D0%BD%D0%BD%D0%B0%D1%8F%20%D0%B1%D0%B5%D0%B7%D0%BE%D0%BF%D0%B0%D1%81%D0%BD%D0%BE%D1%81%D1%82%D1%8C/host_protection/screenshots/9.png)
+
