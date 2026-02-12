@@ -66,4 +66,27 @@ Metasploitable — это система на базе Linux. Поэтому р�
 SYN: Ответит SYN/ACK на открытые порты, RST на закрытые.  
 FIN/Xmas: Ответит только RST на закрытые порты. На открытые порты ответа не будет.  
 UDP: Ответит ICMP Port Unreachable на большинство закрытых портов. На открытые порты (например, 53 — DNS, 161 — SNMP) придет специфичный для службы ответ  
-(если nmap отправил корректный запрос).
+(если nmap отправил корректный запрос).  
+
+Cеансы сканирования в Wireshark:  
+
+SYN  
+
+![3](https://github.com/snprykin/homework/blob/main/%D0%98%D0%BD%D1%84%D0%BE%D1%80%D0%BC%D0%B0%D1%86%D0%B8%D0%BE%D0%BD%D0%BD%D0%B0%D1%8F%20%D0%B1%D0%B5%D0%B7%D0%BE%D0%BF%D0%B0%D1%81%D0%BD%D0%BE%D1%81%D1%82%D1%8C/attacks_is/screenshots/3.jpg)
+
+![4](https://github.com/snprykin/homework/blob/main/%D0%98%D0%BD%D1%84%D0%BE%D1%80%D0%BC%D0%B0%D1%86%D0%B8%D0%BE%D0%BD%D0%BD%D0%B0%D1%8F%20%D0%B1%D0%B5%D0%B7%D0%BE%D0%BF%D0%B0%D1%81%D0%BD%D0%BE%D1%81%D1%82%D1%8C/attacks_is/screenshots/4.jpg)
+
+![5](https://github.com/snprykin/homework/blob/main/%D0%98%D0%BD%D1%84%D0%BE%D1%80%D0%BC%D0%B0%D1%86%D0%B8%D0%BE%D0%BD%D0%BD%D0%B0%D1%8F%20%D0%B1%D0%B5%D0%B7%D0%BE%D0%BF%D0%B0%D1%81%D0%BD%D0%BE%D1%81%D1%82%D1%8C/attacks_is/screenshots/5.jpg)
+
+FIN  
+
+![6](https://github.com/snprykin/homework/blob/main/%D0%98%D0%BD%D1%84%D0%BE%D1%80%D0%BC%D0%B0%D1%86%D0%B8%D0%BE%D0%BD%D0%BD%D0%B0%D1%8F%20%D0%B1%D0%B5%D0%B7%D0%BE%D0%BF%D0%B0%D1%81%D0%BD%D0%BE%D1%81%D1%82%D1%8C/attacks_is/screenshots/6.jpg)
+
+Xmas  
+
+![7](https://github.com/snprykin/homework/blob/main/%D0%98%D0%BD%D1%84%D0%BE%D1%80%D0%BC%D0%B0%D1%86%D0%B8%D0%BE%D0%BD%D0%BD%D0%B0%D1%8F%20%D0%B1%D0%B5%D0%B7%D0%BE%D0%BF%D0%B0%D1%81%D0%BD%D0%BE%D1%81%D1%82%D1%8C/attacks_is/screenshots/7.jpg)
+
+UDP  
+
+![8](https://github.com/snprykin/homework/blob/main/%D0%98%D0%BD%D1%84%D0%BE%D1%80%D0%BC%D0%B0%D1%86%D0%B8%D0%BE%D0%BD%D0%BD%D0%B0%D1%8F%20%D0%B1%D0%B5%D0%B7%D0%BE%D0%BF%D0%B0%D1%81%D0%BD%D0%BE%D1%81%D1%82%D1%8C/attacks_is/screenshots/8.jpg)
+
