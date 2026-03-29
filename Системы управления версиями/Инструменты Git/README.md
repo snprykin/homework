@@ -10,7 +10,7 @@
 
 Команда для выполенния git show aefea --pretty=format:'%H %s' -q  
 
-![1](https://github.com/snprykin/homework/blob/main/%D0%9C%D0%BE%D0%BD%D0%B8%D1%82%D0%BE%D1%80%D0%B8%D0%BD%D0%B3/Zabbix/screenshots/1.jpg)`
+![1](https://github.com/snprykin/homework/blob/main/Системы%20управления%20версиями/Инструменты%20Git/screenshots/1.png)
 
 ---
 
@@ -21,7 +21,7 @@
 Какому тегу соответствует коммит 85024d3?  
 Тег: v0.12.23  
 Команда: git show 85024d3 --oneline -q   
-![2](https://github.com/snprykin/homework/blob/main/%D0%9C%D0%BE%D0%BD%D0%B8%D1%82%D0%BE%D1%80%D0%B8%D0%BD%D0%B3/Zabbix/screenshots/1.jpg)`
+![2](https://github.com/snprykin/homework/blob/main/Системы%20управления%20версиями/Инструменты%20Git/screenshots/1.png)
 
 
 Сколько родителей у коммита b8d720? Напишите их хеши.  
@@ -29,7 +29,7 @@
 Хеши родителей:  
 56cd7859e  
 9ea88f22f  
-![3](https://github.com/snprykin/homework/blob/main/%D0%9C%D0%BE%D0%BD%D0%B8%D1%82%D0%BE%D1%80%D0%B8%D0%BD%D0%B3/Zabbix/screenshots/1.jpg)`
+![3](https://github.com/snprykin/homework/blob/main/Системы%20управления%20версиями/Инструменты%20Git/screenshots/3.png)
 
 Перечислите хеши и комментарии всех коммитов, которые были сделаны между тегами v0.12.23 и v0.12.24.  
 33ff1c03bb960b332be3af2e333462dde88b279e (tag: v0.12.24) v0.12.24  
@@ -42,13 +42,13 @@ d5f9411f5108260320064349b757f55c09bc4b80 command: Fix bug when using terraform l
 4b6d06cc5dcb78af637bbb19c198faff37a066ed Update CHANGELOG.md  
 dd01a35078f040ca984cdd349f18d0b67e486c35 Update CHANGELOG.md  
 225466bc3e5f35baa5d07197bbc079345b77525e Cleanup after v0.12.23 release  
-![4](https://github.com/snprykin/homework/blob/main/%D0%9C%D0%BE%D0%BD%D0%B8%D1%82%D0%BE%D1%80%D0%B8%D0%BD%D0%B3/Zabbix/screenshots/1.jpg)`
+![4](https://github.com/snprykin/homework/blob/main/Системы%20управления%20версиями/Инструменты%20Git/screenshots/4.png)
 
 Найдите коммит, в котором была создана функция func providerSource, её определение в коде выглядит так: func providerSource(...) (вместо троеточия перечислены аргументы).  
 Хеш коммита: 8c928e835 (полный: 8c928e83589d90a031f811fae52a81be7153e82f)  
 Комментарий: main: Consult local directories as potential mirrors of providers  
-![5](https://github.com/snprykin/homework/blob/main/%D0%9C%D0%BE%D0%BD%D0%B8%D1%82%D0%BE%D1%80%D0%B8%D0%BD%D0%B3/Zabbix/screenshots/1.jpg)`
-![6](https://github.com/snprykin/homework/blob/main/%D0%9C%D0%BE%D0%BD%D0%B8%D1%82%D0%BE%D1%80%D0%B8%D0%BD%D0%B3/Zabbix/screenshots/1.jpg)`
+![5](https://github.com/snprykin/homework/blob/main/Системы%20управления%20версиями/Инструменты%20Git/screenshots/5.png)
+![6](https://github.com/snprykin/homework/blob/main/Системы%20управления%20версиями/Инструменты%20Git/screenshots/6.png)
 
 Найдите все коммиты, в которых была изменена функция globalPluginDirs.  
 7c4aeac5f30aed09c5ef3198141b033eea9912be stacks: load credentials from config file on startup (#35952)  
@@ -59,11 +59,11 @@ dd01a35078f040ca984cdd349f18d0b67e486c35 Update CHANGELOG.md
 35a058fb3ddfae9cfee0b3893822c9a95b920f4c main: configure credentials from the CLI config file  
 c0b17610965450a89598da491ce9b6b5cbd6393f prevent log output during init  
 8364383c359a6b738a436d1b7745ccdce178df47 Push plugin discovery down into command package  
-![7](https://github.com/snprykin/homework/blob/main/%D0%9C%D0%BE%D0%BD%D0%B8%D1%82%D0%BE%D1%80%D0%B8%D0%BD%D0%B3/Zabbix/screenshots/1.jpg)`
+![7](https://github.com/snprykin/homework/blob/main/Системы%20управления%20версиями/Инструменты%20Git/screenshots/7.png)
 
 Кто автор функции synchronizedWriters?  
 Автор функции Martin Atkins
-![8](https://github.com/snprykin/homework/blob/main/%D0%9C%D0%BE%D0%BD%D0%B8%D1%82%D0%BE%D1%80%D0%B8%D0%BD%D0%B3/Zabbix/screenshots/1.jpg)`
+![8](https://github.com/snprykin/homework/blob/main/Системы%20управления%20версиями/Инструменты%20Git/screenshots/8.png)
 
 
 
