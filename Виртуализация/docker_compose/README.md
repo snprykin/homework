@@ -37,7 +37,11 @@ CMD ["nginx", "-g", "daemon off;"]
 Ссылка на docker hub  
 https://hub.docker.com/repository/docker/snprykin/custom-nginx/general  
 
-![1]()
+![1](https://github.com/snprykin/homework/blob/main/Виртуализация/docker_compose/screenshots/1.png)
+
+![2](https://github.com/snprykin/homework/blob/main/Виртуализация/docker_compose/screenshots/2.png)
+
+![3](https://github.com/snprykin/homework/blob/main/Виртуализация/docker_compose/screenshots/3.png)
 ---
 
 ### Задание 2
