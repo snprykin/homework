@@ -24,6 +24,20 @@ Hey, Netology
 
 ### Решение
 
+Dockerfile
+```
+FROM nginx:1.29.0
+
+COPY index.html /usr/share/nginx/html/
+
+EXPOSE 80
+
+CMD ["nginx", "-g", "daemon off;"]
+```
+Ссылка на docker hub  
+https://hub.docker.com/repository/docker/snprykin/custom-nginx/general  
+
+![1]()
 ---
 
 ### Задание 2
