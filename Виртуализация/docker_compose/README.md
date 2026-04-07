@@ -56,6 +56,13 @@ https://hub.docker.com/repository/docker/snprykin/custom-nginx/general
 
 ### Решение
 
+![4](https://github.com/snprykin/homework/blob/main/Виртуализация/docker_compose/screenshots/4.png)
+
+![5](https://github.com/snprykin/homework/blob/main/Виртуализация/docker_compose/screenshots/5.png)
+
+![6](https://github.com/snprykin/homework/blob/main/Виртуализация/docker_compose/screenshots/6.png)
+
+![7](https://github.com/snprykin/homework/blob/main/Виртуализация/docker_compose/screenshots/7.png)
 ---
 
 ### Задание 3
