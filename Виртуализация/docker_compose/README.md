@@ -81,6 +81,53 @@ https://hub.docker.com/repository/docker/snprykin/custom-nginx/general
 12. Удалите запущенный контейнер "custom-nginx-t2", не останавливая его.(воспользуйтесь --help или google)
 
 ### Решение
+При подключении через docker attach и нажатии Ctrl+C сигнал прерывания передается главному  
+процессу внутри контейнера (nginx). Nginx, получив сигнал SIGINT,  
+завершает свою работу, что приводит к остановке контейнера,  
+так как контейнер жив пока жив его главный процесс (PID 1)
+
+![8](https://github.com/snprykin/homework/blob/main/Виртуализация/docker_compose/screenshots/8.png)
+![9](https://github.com/snprykin/homework/blob/main/Виртуализация/docker_compose/screenshots/9.png)
+![10](https://github.com/snprykin/homework/blob/main/Виртуализация/docker_compose/screenshots/10.png)
+![11](https://github.com/snprykin/homework/blob/main/Виртуализация/docker_compose/screenshots/11.png)
+![12](https://github.com/snprykin/homework/blob/main/Виртуализация/docker_compose/screenshots/12.png)
+
+Контейнер опубликован с пробросом порта 127.0.0.1:8080:80.  
+После изменения в конфигурации nginx порта с 80 на 81, приложение внутри контейнера больше не слушает порт 80.  
+Docker продолжает пробрасывать трафик с хоста:8080 на контейнер:80, но на порту 80 внутри контейнера ничего не слушает,  
+поэтому соединение не устанавливается.
+
+![13](https://github.com/snprykin/homework/blob/main/Виртуализация/docker_compose/screenshots/13.png)
+![14](https://github.com/snprykin/homework/blob/main/Виртуализация/docker_compose/screenshots/14.png)
+
+Изменить проброс порта без пересоздания контейнера невозможно.  
+Но можно перенаправить трафик внутри контейнера:
+```
+# Войти в контейнер
+docker exec -it custom-nginx-t2 bash
+
+# Установить iptables
+apt-get update && apt-get install -y iptables
+
+# Перенаправить трафик с порта 80 на 81
+iptables -t nat -A PREROUTING -p tcp --dport 80 -j REDIRECT --to-port 81
+```
+![15](https://github.com/snprykin/homework/blob/main/Виртуализация/docker_compose/screenshots/15.png)
+![16](https://github.com/snprykin/homework/blob/main/Виртуализация/docker_compose/screenshots/16.png)
+
+Или вернуть конфиг обратно:
+```
+docker exec -it custom-nginx-t2 bash
+sed -i 's/listen 81;/listen 80;/' /etc/nginx/conf.d/default.conf
+nginx -s reload
+```
+Удаление запущеного контейнера
+```
+docker rm -f custom-nginx-t2
+```
+Флаг -f (force) останавливает и удаляет запущенный контейнер без предварительной остановки.
+
+![17](https://github.com/snprykin/homework/blob/main/Виртуализация/docker_compose/screenshots/17.png)
 
 ---
 
@@ -95,6 +142,49 @@ https://hub.docker.com/repository/docker/snprykin/custom-nginx/general
 Подключитесь во второй контейнер и отобразите листинг и содержание файлов в /data контейнера.  
 
 ### Решение
+
+Запуск первого контейнера из образа centos
+```
+docker run -d --name centos-container -v $(pwd):/data centos:centos7 tail -f /dev/null
+```
+Запуск второго контейнера из образа debian
+```
+docker run -d --name debian-container -v $(pwd):/data debian:latest tail -f /dev/null
+```
+Подключение к первому контейнеру и создание файла
+```
+# Подключаемся к centos контейнеру
+docker exec -it centos-container bash
+# Внутри контейнера создаем файл в /data
+echo 'Hello from CentOS container!' > /data/centos-file.txt
+# Выходим из контейнера
+exit
+```
+Добавление файла на хостовой машине
+```
+# Создаем файл в текущей директории на хосте
+echo 'This file was created on the host machine' > host-file.txt
+```
+Подключение ко второму контейнеру и просмотр файлов
+```
+# Подключаемся к debian контейнеру
+docker exec -it debian-container bash
+# Внутри debian контейнера смотрим листинг /data
+ls -la /data
+# Смотрим содержимое всех файлов
+cat /data/centos-file.txt
+cat /data/host-file.txt
+# Или все файлы сразу
+cat /data/*
+# Выходим из контейнера
+exit
+```
+![18](https://github.com/snprykin/homework/blob/main/Виртуализация/docker_compose/screenshots/18.png)
+![19](https://github.com/snprykin/homework/blob/main/Виртуализация/docker_compose/screenshots/19.png)
+
+Так как оба контейнера используют одну и ту же папку $(pwd) на хосте, все изменения,  
+сделанные в одном контейнере, будут видны в другом контейнере и на хостовой машине.  
+Это демонстрирует работу общих volume между контейнерами.
 
 ---
 
@@ -138,3 +228,139 @@ services:
 7. Удалите любой из манифестов компоуза(например compose.yaml). Выполните команду "docker compose up -d". Прочитайте warning, объясните суть предупреждения и выполните предложенное действие. Погасите compose-проект ОДНОЙ(обязательно!!) командой.
 
 ### Решение
+Создание директории и файлов
+```
+# Создаем директорию
+mkdir  task5
+cd task5
+# Создаем compose.yaml
+cat > compose.yaml << 'EOF'
+version: "3"
+services:
+  portainer:
+    network_mode: host
+    image: portainer/portainer-ce:latest
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+EOF
+# Создаем docker-compose.yaml
+cat > docker-compose.yaml << 'EOF'
+version: "3"
+services:
+  registry:
+    image: registry:2
+    ports:
+      - "5000:5000"
+EOF
+```
+Какой файл был запущен и почему?
+```
+docker compose up -d
+```
+Будет запущен файл compose.yaml.  
+Docker Compose ищет файлы в следующем порядке приоритета:  
+compose.yaml  
+compose.yml  
+docker-compose.yaml  
+docker-compose.yml  
+
+Поскольку compose.yaml существует и имеет более высокий приоритет, он будет использован, а docker-compose.yaml игнорируется.
+![20](https://github.com/snprykin/homework/blob/main/Виртуализация/docker_compose/screenshots/20.png)
+
+Редактируем compose.yaml для запуска обоих сервисов
+```
+cat > compose.yaml << 'EOF'
+version: "3"
+include:
+  - docker-compose.yaml
+
+services:
+  portainer:
+    network_mode: host
+    image: portainer/portainer-ce:latest
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+EOF
+```
+Теперь выполняем запуск:
+```
+docker compose up -d
+```
+Будут запущены оба сервиса:
+portainer (из compose.yaml)
+registry (из включенного docker-compose.yaml)
+
+![21](https://github.com/snprykin/homework/blob/main/Виртуализация/docker_compose/screenshots/21.png)
+
+Заливаем образ custom-nginx в локальное registry
+```
+# Проверяем, что registry работает
+curl http://localhost:5000/v2/_catalog
+# Смотрим список образов
+docker images | grep custom-nginx
+# Тегируем образ для локального registry
+docker tag snprykin/custom-nginx:1.0.0 localhost:5000/custom-nginx:latest
+# Или если нет образа, создаем его
+docker pull nginx:latest
+docker tag nginx:latest localhost:5000/custom-nginx:latest
+# Пушим образ в локальный registry
+docker push localhost:5000/custom-nginx:latest
+# Проверяем, что образ появился в registry
+curl http://localhost:5000/v2/custom-nginx/tags/list
+```
+
+![22](https://github.com/snprykin/homework/blob/main/Виртуализация/docker_compose/screenshots/22.png)
+![23](https://github.com/snprykin/homework/blob/main/Виртуализация/docker_compose/screenshots/23.png)
+
+Настройка Portainer  
+Откройте в браузере: http://127.0.0.1:9000  
+При первом входе:  
+Создайте пользователя-администратора (логин и пароль)  
+
+![24](https://github.com/snprykin/homework/blob/main/Виртуализация/docker_compose/screenshots/24.png)
+![25](https://github.com/snprykin/homework/blob/main/Виртуализация/docker_compose/screenshots/25.png)
+
+Деплой стека через Portainer
+
+![26](https://github.com/snprykin/homework/blob/main/Виртуализация/docker_compose/screenshots/26.png)
+
+```
+version: '3'
+services:
+  nginx:
+    image: 127.0.0.1:5000/custom-nginx
+    ports:
+      - "9090:80"
+```
+![27](https://github.com/snprykin/homework/blob/main/Виртуализация/docker_compose/screenshots/27.png)
+![28](https://github.com/snprykin/homework/blob/main/Виртуализация/docker_compose/screenshots/28.png)
+
+Скриншот inspect
+
+![29](https://github.com/snprykin/homework/blob/main/Виртуализация/docker_compose/screenshots/29.png)
+![30](https://github.com/snprykin/homework/blob/main/Виртуализация/docker_compose/screenshots/30.png)
+```
+# Удаляем compose.yaml
+rm compose.yaml
+# Выполняем docker compose up -d
+docker compose up -d
+```
+![31](https://github.com/snprykin/homework/blob/main/Виртуализация/docker_compose/screenshots/31.png)
+
+Был найден "осиротевший" контейнер task5-portainer-1,  
+который принадлежал этому проекту, но теперь его нет в текущем файле docker-compose.yaml  
+Docker Compose сообщает, что этот контейнер больше не управляется текущей конфигурацией.  
+
+Предложенное действие:
+```
+# Очищаем осиротевшие контейнеры и запускаем проект заново
+docker compose up -d --remove-orphans
+```
+![32](https://github.com/snprykin/homework/blob/main/Виртуализация/docker_compose/screenshots/32.png)
+
+Гасим compose-проект ОДНОЙ командой
+```
+docker compose down
+```
+Эта команда останавливает и удаляет все контейнеры, сети и другие ресурсы, созданные проектом.
+![33](https://github.com/snprykin/homework/blob/main/Виртуализация/docker_compose/screenshots/33.png)
