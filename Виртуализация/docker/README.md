@@ -199,7 +199,8 @@ curl -L http://127.0.0.1:8090
 ![5](screenshots/5.png)
 
 ### Проверка базы данных:
-```mysql -uroot -prootpassword -e "USE example; SELECT * FROM requests LIMIT 10;"
+```
+mysql -uroot -prootpassword -e "USE example; SELECT * FROM requests LIMIT 10;"
 ```
 ![6](screenshots/6.png)
 ---
