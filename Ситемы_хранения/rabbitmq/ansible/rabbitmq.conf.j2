@@ -1,0 +1,10 @@
+# RabbitMQ конфигурация для кластера
+cluster_formation.peer_discovery_backend = rabbit_peer_discovery_classic_config
+cluster_formation.classic_config.nodes.1 = rabbit@{{ groups['rabbitmq_nodes'][0] }}
+{% for node in groups['rabbitmq_nodes'][1:] %}
+cluster_formation.classic_config.nodes.{{ loop.index + 1 }} = rabbit@{{ node }}
+{% endfor %}
+
+loopback_users.guest = false
+log.console = true
+log.file.level = info

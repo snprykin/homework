@@ -1,0 +1,146 @@
+---
+- name: Настройка RabbitMQ кластера
+  hosts: rabbitmq_nodes
+  vars:
+    rabbitmq_erlang_cookie: "SECRETCOOKIE"
+    rabbitmq_version: "3.12.12"
+    rabbitmq_cluster_nodes: "{{ groups['rabbitmq_nodes'] }}"
+    rabbitmq_admin_user: "admin"
+    rabbitmq_admin_password: "adminpassword"
+    
+  tasks:
+    - name: Установка зависимостей
+      become: yes
+      apt:
+        name:
+          - curl
+          - gnupg
+          - apt-transport-https
+          - software-properties-common
+        update_cache: yes
+        state: present
+      when: ansible_os_family == "Debian"
+      
+    - name: Добавление GPG ключа RabbitMQ
+      become: yes
+      apt_key:
+        url: "https://github.com/rabbitmq/signing-keys/releases/download/3.0/rabbitmq-release-signing-key.asc"
+        state: present
+      when: ansible_os_family == "Debian"
+
+    - name: Добавление репозитория RabbitMQ
+      become: yes
+      apt_repository:
+        repo: "deb https://packagecloud.io/rabbitmq/rabbitmq-server/ubuntu/ {{ ansible_distribution_release }} main"
+        state: present
+        update_cache: yes
+      when: ansible_os_family == "Debian"
+      
+    - name: Установка RabbitMQ
+      become: yes
+      apt:
+        name: "rabbitmq-server={{ rabbitmq_version }}*"
+        state: present
+        update_cache: yes
+      when: ansible_os_family == "Debian"
+
+    - name: Установка RabbitMQ для RHEL/CentOS
+      become: yes
+      yum:
+        name: "rabbitmq-server-{{ rabbitmq_version }}"
+        state: present
+        enablerepo: epel
+      when: ansible_os_family == "RedHat"
+
+    - name: Запуск и включение RabbitMQ
+      become: yes
+      systemd:
+        name: rabbitmq-server
+        state: started
+        enabled: yes
+
+    - name: Настройка Erlang cookie
+      become: yes
+      copy:
+        dest: /var/lib/rabbitmq/.erlang.cookie
+        content: "{{ rabbitmq_erlang_cookie }}"
+        owner: rabbitmq
+        group: rabbitmq
+        mode: "0400"
+
+    - name: Перезапуск RabbitMQ для применения cookie
+      become: yes
+      systemd:
+        name: rabbitmq-server
+        state: restarted
+
+    - name: Включение RabbitMQ плагинов
+      become: yes
+      command: "rabbitmq-plugins enable rabbitmq_management rabbitmq_peer_discovery_k8s rabbitmq_prometheus"
+      args:
+        creates: /etc/rabbitmq/enabled_plugins
+
+    - name: Создание администратора
+      become: yes
+      rabbitmq_user:
+        user: "{{ rabbitmq_admin_user }}"
+        password: "{{ rabbitmq_admin_password }}"
+        tags: administrator
+        state: present
+        vhost: /
+      ignore_errors: yes
+
+    - name: Установка прав администратора
+      become: yes
+      rabbitmq_user:
+        user: "{{ rabbitmq_admin_user }}"
+        configure_priv: ".*"
+        write_priv: ".*"
+        read_priv: ".*"
+        vhost: /
+        state: present
+
+- name: Настройка кластера (запускается только на главном узле)
+  hosts: rabbitmq_nodes[0]
+  vars:
+    rabbitmq_erlang_cookie: "SECRETCOOKIE"
+    rabbitmq_cluster_nodes: "{{ groups['rabbitmq_nodes'] }}"
+    
+  tasks:
+    - name: Сбор информации о других нодах
+      set_fact:
+        cluster_members: "{{ groups['rabbitmq_nodes'] | reject('equalto', inventory_hostname) }}"
+
+    - name: Добавление нод в кластер
+      delegate_to: "{{ item }}"
+      become: yes
+      rabbitmq_cluster:
+        name: "rabbit@{{ inventory_hostname }}"
+        node: "rabbit@{{ item }}"
+        state: present
+      loop: "{{ cluster_members }}"
+      run_once: yes
+
+    - name: Создание политики ha-all для всех очередей
+      become: yes
+      rabbitmq_policy:
+        name: ha-all
+        pattern: ".*"
+        policy:
+          ha-mode: all
+          ha-sync-mode: automatic
+        vhost: /
+        state: present
+      run_once: yes
+
+    - name: Установка зеркалирования для всех существующих очередей
+      become: yes
+      shell: |
+        rabbitmqctl list_queues name | while read queue; do
+          if [ ! -z "$queue" ]; then
+            rabbitmqctl set_policy ha-all ".*" '{"ha-mode":"all"}' --apply-to queues
+          fi
+        done
+      args:
+        executable: /bin/bash
+      run_once: yes

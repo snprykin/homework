@@ -1,0 +1,161 @@
+# Домашнее задание к занятию «Репликация и масштабирование. Часть 1» - `Прыкин Сергей`
+
+## Задание 1
+
+### 1. Master-Slave (Ведущий-ведомый) - Классическая репликация
+Основная идея: Один узел (master) принимает операции записи и чтения, а один или несколько узлов (slave) реплицируют  
+данные с мастера для операций чтения.
+
+Как это работает:
+Master (ведущий): Обрабатывает все операции записи (INSERT, UPDATE, DELETE). Все изменения записываются  
+в его бинарный лог (binlog, WAL).
+Slave (ведомый): Подключается к мастеру, читает его бинарный лог и применяет изменения к своей  
+копии данных (обычно асинхронно). Обрабатывает только операции чтения (SELECT).
+
+Плюсы:
+Масштабирование чтения: Можно добавить много слейвов для распределения нагрузки на чтение.
+Резервное копирование и аналитика: Слейвы можно использовать для бэкапов или тяжелых аналитических  
+запросов без нагрузки на мастер.
+Повышенная доступность: При падении мастера один из слейвов можно назначить новым мастером  
+(с помощью дополнительных инструментов).
+Простота: Концептуально и технически проще, чем master-master.
+
+Минусы:
+Единая точка отказа (SPOF): Мастер — единственная точка для записи. Если он упадет, запись будет  
+невозможна до восстановления.
+Задержка репликации (Replication Lag): Слейвы могут отставать от мастера, что приводит к чтению  
+устаревших данных.
+Не масштабирует запись: Все операции записи идут через один узел.
+Идеальный случай: Приложения, где чтение значительно превышает запись  
+(например, блоги, новостные сайты, каталоги товаров).
+
+### 2. Master-Master (или Multi-Master) - Двунаправленная репликация
+Основная идея: Два или более узла могут принимать операции записи и чтения.  
+Изменения, сделанные на любом из узлов, реплицируются на все остальные.
+
+Как это работает:
+Каждый узел является одновременно и мастером (для своих клиентов) и слейвом  
+(получает изменения от других мастеров).
+Требуются механизмы для разрешения конфликтов, если на разных узлах  
+одновременно изменили одни и те же данные.
+
+Плюсы:
+Отказоустойчивость записи: Если один мастер падает, запись может продолжиться на других.  
+Нет единой точки отказа для операций записи.
+Географическое распределение: Мастера можно разместить в разных регионах для записи данных  
+ближе к пользователям.
+Балансировка нагрузки записи: Теоретически можно распределять запись между узлами  
+(на практике сложно из-за конфликтов).
+
+Минусы:
+Сложность: Очень сложна в настройке и поддержке.
+Конфликты репликации: Самый большой недостаток. Если два пользователя изменят одну и ту же строку  
+на разных мастерах одновременно, возникнет конфликт. Его разрешение может быть нетривиальным  
+(например, "последняя запись побеждает", что ведет к потере данных).
+Риск расходящихся данных: При некорректной обработке конфликтов данные на узлах могут разойтись.
+Часто не дает выигрыша в производительности: Накладные расходы на разрешение конфликтов  
+и двустороннюю репликацию могут "съесть" выгоду.
+
+### 3. Основные различия Master-Slave (Primary-Replica) и Master-Master (Multi-Primary):
+
+Запись данных:
+Master-Slave: Только на одном узле (master/primary).
+Master-Master: На нескольких узлах одновременно.
+
+Точка отказа:
+Master-Slave: Master — единая точка отказа для операций записи.
+Master-Master: Нет единой точки отказа для записи (один узел может упасть).
+
+Главная проблема:
+Master-Slave: Задержка репликации (данные на репликах могут быть устаревшими).
+Master-Master: Конфликты данных (риск повреждения при одновременной записи в  
+одно место с разных узлов).
+
+Сложность:
+Master-Slave: Относительно проста.
+Master-Master: Крайне сложна в настройке и поддержке из-за конфликтов.
+
+Проще говоря:
+Master-Slave — для масштабирования чтения и резервирования.
+Master-Master — для отказоустойчивости записи и географического распределения,  
+но ценой сложности и риска конфликтов.
+
+---
+
+## Задание 2
+### Выполните конфигурацию master-slave репликации
+### Docker-compose.yml
+	version: '3.8'
+
+	services:
+	 mysql-master:
+    	 image: mysql:8.0
+    	 container_name: mysql-master
+    	 environment:
+	  MYSQL_ROOT_PASSWORD: root123
+	  MYSQL_DATABASE: university
+	  MYSQL_USER: replica_user
+	  MYSQL_PASSWORD: replica123
+	 ports:
+	  - "3306:3306"
+	 volumes:
+	  - master-data:/var/lib/mysql
+	  - ./master-config/my.cnf:/etc/mysql/conf.d/my.cnf
+    	 networks:
+	  - mysql-net
+    	 command: 
+	  - --server-id=1
+	  - --log-bin=mysql-bin
+	  - --binlog-format=ROW
+	  - --loose-group-replication-local-address=mysql-master:6606
+
+	mysql-slave:
+    	 image: mysql:8.0
+    	 container_name: mysql-slave
+    	 environment:
+	   MYSQL_ROOT_PASSWORD: root123
+    	 ports:
+          - "3307:3306"
+    	 volumes:
+          - slave-data:/var/lib/mysql
+          - ./slave-config/my.cnf:/etc/mysql/conf.d/my.cnf
+    	 depends_on:
+          - mysql-master
+    	 networks:
+          - mysql-net
+    	 command: 
+          - --server-id=2
+          - --log-bin=mysql-bin
+          - --relay-log=mysql-relay-bin
+          - --read-only=1
+          - --loose-group-replication-local-address=mysql-slave:6606
+
+	volumes:
+	  master-data:
+	  slave-data:
+
+	networks:
+	  mysql-net:
+          driver: bridge
+
+
+![Ответ](https://github.com/snprykin/homework/blob/main/%D0%A0%D0%B5%D0%BB%D1%8F%D1%86%D0%B8%D0%BE%D0%BD%D0%BD%D1%8B%D0%B5%20%D0%B1%D0%B0%D0%B7%D1%8B%20%D0%B4%D0%B0%D0%BD%D0%BD%D1%8B%D1%85/replic_part1/screenshots/1.png)
+
+![Ответ](https://github.com/snprykin/homework/blob/main/%D0%A0%D0%B5%D0%BB%D1%8F%D1%86%D0%B8%D0%BE%D0%BD%D0%BD%D1%8B%D0%B5%20%D0%B1%D0%B0%D0%B7%D1%8B%20%D0%B4%D0%B0%D0%BD%D0%BD%D1%8B%D1%85/replic_part1/screenshots/2.png)
+
+![Ответ](https://github.com/snprykin/homework/blob/main/%D0%A0%D0%B5%D0%BB%D1%8F%D1%86%D0%B8%D0%BE%D0%BD%D0%BD%D1%8B%D0%B5%20%D0%B1%D0%B0%D0%B7%D1%8B%20%D0%B4%D0%B0%D0%BD%D0%BD%D1%8B%D1%85/replic_part1/screenshots/3.png)
+
+![Ответ](https://github.com/snprykin/homework/blob/main/%D0%A0%D0%B5%D0%BB%D1%8F%D1%86%D0%B8%D0%BE%D0%BD%D0%BD%D1%8B%D0%B5%20%D0%B1%D0%B0%D0%B7%D1%8B%20%D0%B4%D0%B0%D0%BD%D0%BD%D1%8B%D1%85/replic_part1/screenshots/4.png)
+
+![Ответ](https://github.com/snprykin/homework/blob/main/%D0%A0%D0%B5%D0%BB%D1%8F%D1%86%D0%B8%D0%BE%D0%BD%D0%BD%D1%8B%D0%B5%20%D0%B1%D0%B0%D0%B7%D1%8B%20%D0%B4%D0%B0%D0%BD%D0%BD%D1%8B%D1%85/replic_part1/screenshots/5.png)
+
+![Ответ](https://github.com/snprykin/homework/blob/main/%D0%A0%D0%B5%D0%BB%D1%8F%D1%86%D0%B8%D0%BE%D0%BD%D0%BD%D1%8B%D0%B5%20%D0%B1%D0%B0%D0%B7%D1%8B%20%D0%B4%D0%B0%D0%BD%D0%BD%D1%8B%D1%85/replic_part1/screenshots/6.png)
+
+![Ответ](https://github.com/snprykin/homework/blob/main/%D0%A0%D0%B5%D0%BB%D1%8F%D1%86%D0%B8%D0%BE%D0%BD%D0%BD%D1%8B%D0%B5%20%D0%B1%D0%B0%D0%B7%D1%8B%20%D0%B4%D0%B0%D0%BD%D0%BD%D1%8B%D1%85/replic_part1/screenshots/7.png)
+
+![Ответ](https://github.com/snprykin/homework/blob/main/%D0%A0%D0%B5%D0%BB%D1%8F%D1%86%D0%B8%D0%BE%D0%BD%D0%BD%D1%8B%D0%B5%20%D0%B1%D0%B0%D0%B7%D1%8B%20%D0%B4%D0%B0%D0%BD%D0%BD%D1%8B%D1%85/replic_part1/screenshots/8.png)
+
+![Ответ](https://github.com/snprykin/homework/blob/main/%D0%A0%D0%B5%D0%BB%D1%8F%D1%86%D0%B8%D0%BE%D0%BD%D0%BD%D1%8B%D0%B5%20%D0%B1%D0%B0%D0%B7%D1%8B%20%D0%B4%D0%B0%D0%BD%D0%BD%D1%8B%D1%85/replic_part1/screenshots/9.png)
+
+
+

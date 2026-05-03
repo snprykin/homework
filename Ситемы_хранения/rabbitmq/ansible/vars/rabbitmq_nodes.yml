@@ -1,0 +1,6 @@
+---
+rabbitmq_erlang_cookie: "MY_SECURE_COOKIE_123"
+rabbitmq_version: "3.12.12"
+rabbitmq_admin_user: "admin"
+rabbitmq_admin_password: "YourSecurePassword123"
+rabbitmq_cluster_name: "rabbitmq_cluster"
