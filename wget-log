@@ -1,0 +1,6 @@
+--2026-05-11 18:43:39--  https://apt.releases.hashicorp.com/gpg
+Распознаётся apt.releases.hashicorp.com (apt.releases.hashicorp.com)… 3.164.230.56, 3.164.230.117, 3.164.230.48, ...
+Подключение к apt.releases.hashicorp.com (apt.releases.hashicorp.com)|3.164.230.56|:443... соединение установлено.
+HTTP-запрос отправлен. Ожидание ответа… 404 Not Found
+2026-05-11 18:43:40 ОШИБКА 404: Not Found.
+
