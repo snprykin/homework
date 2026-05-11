@@ -35,8 +35,7 @@
 4.   Обнаруженные ошибки:  
 1 В ресурсе docker_image: отсутствует обязательный параметр name (label/имя ресурса) и пропущен аргумент name. Правильно: resource "docker_image" "nginx".  
 2 В ресурсе docker_container: имя ресурса 1nginx начинается с цифры, что недопустимо в Terraform.  
-3 В строке name контейнера: обращение random_password.random_string_FAKE.resulT содержит опечатку в имени ресурса (должен быть random_string)  
-и в имени атрибута (должен быть result).  
+3 В строке name контейнера: обращение random_password.random_string_FAKE.resulT содержит опечатку в имени ресурса (должен быть random_string) и в имени атрибута (должен быть result).  
 ![6](screenshots/6.png)   
 5. 
 ``` 
