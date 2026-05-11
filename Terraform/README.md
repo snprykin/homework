@@ -69,8 +69,6 @@ resource "docker_container" "nginx" {
 ![13](screenshots/13.png)  
 8. В ресурсе docker_image установлен параметр keep_locally = true  
 Подтверждение из документации Terraform провайдера docker (resource docker_image):  
-В документации сказано: keep_locally (Boolean) - If true, then the Docker image won't be deleted on destroy operation.  
-If this is false, it will delete the image from the docker local storage on destroy operation.  
-Таким образом, параметр keep_locally = true явно указывает Terraform сохранять образ локально даже при уничтожении ресурса.  
-Это предотвращает удаление образа nginx:latest из локального хранилища Docker.  
+В документации сказано: keep_locally (Boolean) - If true, then the Docker image won't be deleted on destroy operation. If this is false, it will delete the image from the docker local storage on destroy operation.  
+Таким образом, параметр keep_locally = true явно указывает Terraform сохранять образ локально даже при уничтожении ресурса. Это предотвращает удаление образа nginx:latest из локального хранилища Docker.  
 
