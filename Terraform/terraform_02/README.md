@@ -140,31 +140,4 @@ metadata = {
 
 ```
 **Ответ**  
-
-Делаем согласно заданию:  
-
-в vms_platform.tf:  
- <img src="img/img_11.png" width="100%">   
-
-в personal.auto.tfvars:  
-
- <img src="img/img_12.png" width="100%">   
-
- Комментируем ресурсы в [vms_platform.tf](../vms_platform.tf).  
-
- Используем vms_resources в main.tf:
-
-<img src="img/img_13.png" width="100%">   
-
-<img src="img/img_14.png" width="100%">   
- 
- Подключаем metadata в обе ВМ: 
-
- <img src="img/img_15.png" width="100%"> 
- 
- Проводим проверку:
-
- <img src="img/img_16.png" width="100%"> 
-
-
- Всё корректно.
+<img src="screenshots/img_8.png" width="100%">
