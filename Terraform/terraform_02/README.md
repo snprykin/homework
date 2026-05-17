@@ -22,11 +22,11 @@
 ```
 **Ответ**  
 Скриншот ЛК Yandex Cloud с созданой  ВМ.  
-<img src="screenshots/img_1.png" width="100%">   
+<img src="screenshots/1.png" width="100%">   
 
 Залогинимся в машину и выполним curl ifconfig.me
 
-<img src="screenshots/img_2.png" width="100%">   
+<img src="screenshots/2.png" width="100%">   
 
 Ошибки в файле:  
 platform_id = "standart-v4"  
@@ -59,7 +59,7 @@ core_fraction = 5:
 Перенесли все хардкод значения в переменные в [variables.tf]  
 Проверим конфигурацию. Изменений не произошло как и было укзаано в задании.
 
-<img src="screenshots/img_3.png" width="100%">   
+<img src="screenshots/3.png" width="100%">   
 
 **Задание 3.**  
 
@@ -73,8 +73,8 @@ core_fraction = 5:
 **Ответ**  
 Создадим в корне проекта [vms_platform.tf]. Сделаем перенос в него всех переменных. Создадим вторую виртуальную машину [в main.tf].  
 Проверим конфигурацию.  
-<img src="screenshots/img_4.png" width="100%">    
-<img src="screenshots/img_5.png" width="100%">  
+<img src="screenshots/4.png" width="100%">    
+<img src="screenshots/5.png" width="100%">  
 
 **Задание 4.**  
 
@@ -87,7 +87,7 @@ core_fraction = 5:
 **Ответ**  
 Создадим [Outputs.tf]
 Запустим инстанс:  
-<img src="screenshots/img_6.png" width="100%">   
+<img src="screenshots/6.png" width="100%">   
 
 
 **Задание 5.**  
@@ -101,7 +101,7 @@ core_fraction = 5:
 **Ответ**  
 Создадим [locals.tf](../locals.tf) и опишем в нем имя для каждой ВМ.  
 И провери конфигурацию:  
-<img src="screenshots/img_7.png" width="100%">   
+<img src="screenshots/7.png" width="100%">   
 
 **Задание 6.**  
 ```
@@ -140,4 +140,4 @@ metadata = {
 
 ```
 **Ответ**  
-<img src="screenshots/img_8.png" width="100%">
+<img src="screenshots/8.png" width="100%">
