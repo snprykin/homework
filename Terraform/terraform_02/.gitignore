@@ -1,13 +1,76 @@
 # Local .terraform directories and files
+# Terraform
 **/.terraform/*
-.terraform*
-.README*
-
-# .tfstate files
 *.tfstate
 *.tfstate.*
+*.tfplan
+*.tfplan.*
+crash.log
+crash.*.log
+override.tf
+override.tf.json
+*_override.tf
+*_override.tf.json
+.terraformrc
+terraform.rc
+*.backup
+*.bak
 
-# own secret vars store.
-personal.auto.tfvars
-# ключ сервисного аккаунта
-authorized_key.json
+# Secrets
+*.tfvars
+*.tfvars.json
+!example.tfvars
+!example.tfvars.json
+*authorized_key*.json
+*authorized_key*.pem
+*sa_key*.json
+*sa_key*.pem
+*.pem
+*.key
+*.crt
+*.p12
+*.pfx
+*.jks
+*.keystore
+*.secret
+*secret*
+*password*
+*credentials*
+*.token
+personal.*
+private.*
+my.*
+*.personal
+*.private
+
+# OS
+.DS_Store
+._*
+.AppleDouble
+.LSOverride
+.directory
+.Trash-*
+*~
+Thumbs.db
+Desktop.ini
+$RECYCLE.BIN/
+
+# IDE
+.vscode/
+.history/
+.idea/
+*.iml
+*.iws
+*.ipr
+*.swp
+*.swo
+*.swn
+*.vim
+
+# Temp
+tmp/
+temp/
+*.tmp
+*.temp
+*.log
+!crash.log
