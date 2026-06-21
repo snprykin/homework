@@ -7,8 +7,11 @@
 
 ###Результат molecule test  
 molecule test -s default  
+
+Converge    
 <img src="screenshots/1.png" width="100%">  
-![molecula test]<img src="screenshots/2.png" width="100%">
+Verify  
+<img src="screenshots/2.png" width="100%">
 
 
 ###Результат tox  
@@ -20,7 +23,8 @@ docker run --privileged=True \
 
 ####Внутри контейнера:  
 tox  
-![tox](<img src="screenshots/3.png" width="100%">)
+
+<img src="screenshots/3.png" width="100%">
 
 ###Теги решений
 
