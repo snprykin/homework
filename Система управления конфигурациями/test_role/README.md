@@ -7,7 +7,9 @@
 
 ###Результат molecule test  
 molecule test -s default  
-![molecula test](screenshots/1.jpg)
+![molecula test](<img src="screenshots/1.png" width="100%">)
+![molecula test](<img src="screenshots/2.png" width="100%">)
+
 
 ###Результат tox  
 docker run --privileged=True \  
@@ -18,7 +20,7 @@ docker run --privileged=True \
 
 ####Внутри контейнера:  
 tox  
-![molecula test](screenshots/2.jpg)`
+![tox](<img src="screenshots/3.png" width="100%">)
 
 ###Теги решений
 
