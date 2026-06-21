@@ -7,8 +7,8 @@
 
 ###Результат molecule test  
 molecule test -s default  
-![molecula test](<img src="screenshots/1.png" width="100%">)
-![molecula test](<img src="screenshots/2.png" width="100%">)
+<img src="screenshots/1.png" width="100%">  
+![molecula test]<img src="screenshots/2.png" width="100%">
 
 
 ###Результат tox  
