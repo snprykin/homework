@@ -1,13 +1,10 @@
-# Домашнее задание "Система мониторинга" - `Прыкин Сергей`
-
-
-# ДЗ к занятию 14. Средство визуализации Grafana
+# Домашнее задание "Средство визуализации Grafana" - `Прыкин Сергей`
 
 ## Структура проекта
-- `docker-compose.yml` - основной манифест для развертывания стека Prometheus + Grafana + Node Exporter
-- `prometheus.yml` - конфигурация целей для Prometheus
-- `grafana/provisioning/datasources/datasource.yml` - автоматическая настройка источника данных в Grafana
-- `dashboard.json` - экспортированная модель дашборда
+- [docker-compose.yml](./docker-compose.yml) - основной манифест для развертывания стека Prometheus + Grafana + Node Exporter
+- [prometheus.yml](./prometheus.yml) - конфигурация целей для Prometheus
+- [datasource.yml](./datasource.yml) - автоматическая настройка источника данных в Grafana
+
 
 ## Задание 1. Развертывание и Data Source
 1. Стек поднят с помощью `docker-compose up -d`.
@@ -16,6 +13,8 @@
 4. Скриншот выполненного задания:
 
 <img src="screenshots/1.png" width="100%">
+
+---
 
 ## Задание 2. PromQL и Панели
 Создан дашборд `Dashboard`.
@@ -29,6 +28,8 @@ PromQL запросы:
 
 <img src="screenshots/2.png" width="100%">
 
+---
+
 ## Задание 3. Алерты
 Настроены правила алертов:
 - **High CPU Usage (>80%)**: На панели CPU.
@@ -37,10 +38,8 @@ PromQL запросы:
 
 <img src="screenshots/3.png" width="100%">
 
-## Задание 4. Модель дашборда
-Файл `dashboard.json` приложен к решению.
+---
 
-### Листинг dashboard.json
-```json
-<СКОПИРУЙТЕ СЮДА ВСЁ СОДЕРЖИМОЕ ФАЙЛА dashboard.json>
+## Задание 4. Модель дашборда
+Файл [dashboard.json](./dashboard.json) приложен к решению.
 
