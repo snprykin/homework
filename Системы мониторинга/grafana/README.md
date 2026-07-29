@@ -1,16 +1,9 @@
 # Домашнее задание "Средство визуализации Grafana" - `Прыкин Сергей`
 
-## Структура проекта
-- [docker-compose.yml](./docker-compose.yml) - основной манифест для развертывания стека Prometheus + Grafana + Node Exporter
-- [prometheus.yml](./prometheus.yml) - конфигурация целей для Prometheus
-- [datasource.yml](./datasource.yml) - автоматическая настройка источника данных в Grafana
-
-
 ## Задание 1. Развертывание и Data Source
 1. Стек поднят с помощью `docker-compose up -d`.
-2. Вход в Grafana выполнен под `admin/admin`.
-3. Data Source "Prometheus" был автоматически подключен через систему Provisioning.
-4. Скриншот выполненного задания:
+2. Data Source "Prometheus" был автоматически подключен через систему Provisioning.
+3. Скриншот выполненного задания:
 
 <img src="screenshots/1.png" width="100%">
 
