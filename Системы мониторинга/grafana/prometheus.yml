@@ -1,0 +1,15 @@
+# prometheus.yml
+global:
+  scrape_interval: 15s # Интервал опроса целей
+
+scrape_configs:
+  # Задача по сбору метрик с самого Prometheus (опционально, для самодиагностики)
+  - job_name: 'prometheus'
+    static_configs:
+      - targets: ['prometheus:9090']
+
+  # Наша основная задача - сбор метрик с Node Exporter
+  - job_name: 'node_exporter'
+    static_configs:
+      # Обратите внимание на хост: это имя сервиса из docker-compose
+      - targets: ['node-exporter:9100']
