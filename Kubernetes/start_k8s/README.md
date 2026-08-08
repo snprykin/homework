@@ -128,7 +128,6 @@ curl -s web-svc:8080 | head -10
 Второй запрос возвращает информацию о multitool  
 Вывод команд curl внутри тестового пода. Виден HTML-код страницы nginx и JSON с информацией о multitool
 <img src="screenshots/5.png" width="100%">
----
 
 ## Задание 2. Deployment с Init-контейнером
 ### 2.1. Создание Deployment с Init-контейнером
