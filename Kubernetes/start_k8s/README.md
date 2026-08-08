@@ -58,14 +58,16 @@ spec:
 ```
 ```
 kubectl apply -f deployment-nginx-multitool.yaml
-kubectl get pods```
+kubectl get pods
+```
 Под web-app в статусе Running, READY 2/2. Ошибка с конфликтом портов решена путём назначения multitool порта 8080 через переменную HTTP_PORT
 <img src="screenshots/1.png" width="100%">
 
 ### 1.2. Масштабирование до 2 реплик
 
 ```
-kubectl get pods -l app=web```
+kubectl get pods -l app=web
+```
 Один под до масштабирования
 <img src="screenshots/2.png" width="100%">
 
@@ -74,7 +76,6 @@ kubectl get pods -l app=web```
 kubectl scale deployment web-app --replicas=2
 ```
 После масштабирования:
-
 ```
 kubectl get pods -l app=web
 ```
@@ -123,9 +124,8 @@ kubectl run test-pod --image=praqma/network-multitool:latest --rm -it --restart=
 curl -s web-svc | head -10
 curl -s web-svc:8080 | head -10
 ```
-Первый запрос возвращает HTML страницы nginx
-Второй запрос возвращает информацию о multitool
-
+Первый запрос возвращает HTML страницы nginx  
+Второй запрос возвращает информацию о multitool  
 Вывод команд curl внутри тестового пода. Виден HTML-код страницы nginx и JSON с информацией о multitool
 <img src="screenshots/5.png" width="100%">
 ---
