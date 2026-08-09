@@ -356,8 +356,8 @@ Ingress example-ingress создан, класс public, порт 80.
 ### 2.5. Проверка доступа через Ingress
 Доступ проверен через curl к IP узла по порту 80:
 ```
-curl -s http://<node-ip>/ | head -10
-curl -s http://<node-ip>/api | head -10
+curl -s http://192.168.212.128/ | head -10
+curl -s http://192.168.212.128/api | head -10
 ```
 Результат:
 curl / — возвращает HTML страницы nginx (frontend)
