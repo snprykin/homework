@@ -283,8 +283,9 @@ spec:
   - protocol: TCP
     port: 80
     targetPort: 80
+```
 Файл: service-backend.yaml
-
+```
 yaml
 apiVersion: v1
 kind: Service
