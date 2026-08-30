@@ -1,0 +1,76 @@
+---
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: local-pv
+spec:
+  capacity:
+    storage: 1Gi
+  volumeMode: Filesystem
+  accessModes:
+    - ReadWriteOnce
+  persistentVolumeReclaimPolicy: Retain
+  storageClassName: microk8s-hostpath
+  hostPath:
+    path: /mnt/k8s-data
+
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: local-pvc
+spec:
+  volumeName: local-pv
+  volumeMode: Filesystem
+  accessModes:
+    - ReadWriteOnce
+  storageClassName: microk8s-hostpath
+  resources:
+    requests:
+      storage: 1Gi
+
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: data-exchange-pvc
+  labels:
+    app: data-exchange-pvc
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: data-exchange-pvc
+  template:
+    metadata:
+      labels:
+        app: data-exchange-pvc
+    spec:
+      containers:
+      - name: writer
+        image: busybox:1.36
+        command: ["/bin/sh", "-c"]
+        args:
+        - |
+          while true; do
+            echo "$(date) - Data from PVC writer" >> /shared/output.log
+            sleep 5
+          done
+        volumeMounts:
+        - name: persistent-data
+          mountPath: /shared
+
+      - name: reader
+        image: busybox:1.36
+        command: ["/bin/sh", "-c"]
+        args:
+        - |
+          tail -f /shared/output.log
+        volumeMounts:
+        - name: persistent-data
+          mountPath: /shared
+
+      volumes:
+      - name: persistent-data
+        persistentVolumeClaim:
+          claimName: local-pvc
