@@ -76,7 +76,7 @@ kubectl describe pod -l app=data-exchange
 ```
 В выводе видны два контейнера (writer и reader), том shared-data типа EmptyDir, смонтированный в оба контейнера по пути /shared.
 Скриншот 1: Контейнеры и общий том emptyDir
-![Скриншот](1.png)
+![Скриншот](Kubernetes/volumes/screenshots/1.png)
 ![Скриншот](1_2.png)
 
 ### 1.3. Проверка чтения файла контейнером reader
