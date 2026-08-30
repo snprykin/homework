@@ -76,8 +76,8 @@ kubectl describe pod -l app=data-exchange
 ```
 В выводе видны два контейнера (writer и reader), том shared-data типа EmptyDir, смонтированный в оба контейнера по пути /shared.
 Скриншот 1: Контейнеры и общий том emptyDir
-<img src="screenshots/1.png" width="100%">
-<img src="screenshots/1_2.png" width="100%">
+![Скриншот](1.png)
+![Скриншот](1_2.png)
 
 ### 1.3. Проверка чтения файла контейнером reader
 
@@ -86,14 +86,14 @@ kubectl logs -l app=data-exchange -c reader --tail=20
 ```
 В логах контейнера reader видны строки с датами, которые записал контейнер writer. Обмен данными между контейнерами работает.
 Скриншот 2: Логи контейнера reader — успешное чтение данных из общего файла.
-<img src="screenshots/2.png" width="100%">
+![Скриншот](2.png)
 
 Дополнительная проверка напрямую через exec:
 ```
 kubectl exec -it deployment/data-exchange -c reader -- sh -c "tail -5 /shared/output.log"
 ```
 Скриншот 3: Прямое чтение файла через kubectl exec в контейнере reader.
-<img src="screenshots/3.png" width="100%">
+![Скриншот](3.png)
 
 ## Задание 2. PV, PVC
 
@@ -195,9 +195,9 @@ kubectl get pvc local-pvc
 ```
 PV local-pv и PVC local-pvc в статусе Bound. Хранилище 1Gi, access mode RWO, storage class microk8s-hostpath.
 Скриншот 4: kubectl get pv local-pv — статус Bound, PVC default/local-pvc привязан.
-<img src="screenshots/4.png" width="100%">
+![Скриншот](4.png)
 Скриншот 5: kubectl get pvc local-pvc — статус Bound, том local-pv привязан.
-<img src="screenshots/5.png" width="100%">
+![Скриншот](5.png)
 
 ### 2.3. Проверка чтения данных из смонтированной директории
 ```
@@ -205,7 +205,7 @@ kubectl logs -l app=data-exchange-pvc -c reader --tail=20
 ```
 Контейнер reader успешно читает данные из файла на смонтированном томе PV.
 Скриншот 6: Логи контейнера reader — данные читаются из файла на PV.
-<img src="screenshots/6.png" width="100%">
+![Скриншот](6.png)
 
 ### 2.4. Удаление Deployment и PVC
 ```
@@ -219,7 +219,7 @@ kubectl describe pv local-pv
 ```
 PV перешёл в статус Released.
 Скриншот 7: kubectl describe pv local-pv — статус Released после удаления PVC.
-<img src="screenshots/7.png" width="100%">
+![Скриншот](7.png)
 Пояснение:
 PV имеет persistentVolumeReclaimPolicy: Retain. После удаления PVC PV не удаляется автоматически, а переходит в статус Released. 
 Данные на ноде сохраняются. PV не может быть привязан к новому PVC, пока администратор не освободит его вручную.
@@ -231,7 +231,7 @@ cat /mnt/k8s-data/output.log | tail -10
 ```
 Файл output.log существует на ноде и содержит данные, записанные контейнером writer.
 Скриншот 8: Файл output.log с данными на локальном диске ноды.
-<img src="screenshots/8.png" width="100%">
+![Скриншот](8.png)
 
 ### 2.6. Удаление PV
 ```
@@ -246,7 +246,7 @@ cat /mnt/k8s-data/output.log | tail -10
 ```
 Файл сохранился на ноде после удаления PV.
 Скриншот 9: PV удалён (NotFound), но файл output.log на ноде остался.
-<img src="screenshots/9.png" width="100%">
+![Скриншот](9.png)
 Пояснение:
 PV типа hostPath просто ссылается на директорию на ноде. Удаление PV в Kubernetes не удаляет данные с диска. Kubernetes управляет только объектом PV, а не физическими данными на ноде.
 
@@ -287,7 +287,7 @@ kubectl get sc local-storage
 ```
 StorageClass local-storage создан: no-provisioner, WaitForFirstConsumer.
 Скриншот 10: kubectl get sc local-storage — StorageClass с provisioner no-provisioner.
-<img src="screenshots/10.png" width="100%">
+![Скриншот](10.png)
 
 ### 3.2. Проверка PVC до создания PV
 ```
@@ -295,7 +295,7 @@ kubectl get pvc sc-pvc
 ```
 PVC в статусе Pending. Так как StorageClass использует no-provisioner, автоматическое создание PV невозможно. PVC ждёт, пока администратор создаст PV вручную.
 Скриншот 11: kubectl get pvc sc-pvc — статус Pending до создания PV.
-<img src="screenshots/11.png" width="100%">
+![Скриншот](11.png)
 
 ### 3.3. Создание PV вручную
 Создан PV sc-pv с указанием storageClassName: local-storage:
@@ -326,7 +326,7 @@ kubectl get pvc sc-pvc
 ```
 PVC перешёл в статус Bound, том sc-pv привязан.
 Скриншот 12: kubectl get pvc sc-pvc — статус Bound после создания PV.
-<img src="screenshots/12.png" width="100%">
+![Скриншот](12.png)
 
 ### 3.4. Создание Deployment
 Создан Deployment data-exchange-sc, использующий PVC sc-pvc. Манифест включён в файл sc.yaml.
@@ -389,6 +389,6 @@ kubectl logs -l app=data-exchange-sc -c reader --tail=20
 ```
 Контейнер reader успешно читает данные из файла на томе, созданном через StorageClass.
 Скриншот 13: Логи контейнера reader — данные читаются из файла на PVC, созданном через StorageClass.
-<img src="screenshots/13.png" width="100%">
+![Скриншот](13.png)
 
 
