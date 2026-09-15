@@ -17,7 +17,7 @@
 
 **Файл: `configmap-web.yaml`**
 
-```yaml
+```
 apiVersion: v1
 kind: ConfigMap
 metadata:
@@ -47,7 +47,7 @@ ConfigMap web-content монтируется в /usr/share/nginx/html — дир
 
 **Файл: `deployment.yaml`**
 
-```yaml
+```
 apiVersion: apps/v1
 kind: Deployment
 metadata:
@@ -163,7 +163,7 @@ kubectl get pods -n ingress
 ### 2.4. Создание Service для web-app
 **Файл: `service-web.yaml`**
 
-```yaml
+```
 apiVersion: v1
 kind: Service
 metadata:
@@ -190,7 +190,7 @@ kubectl get svc web-svc
 ### 2.5. Создание Ingress с TLS
 **Файл: `ingress-tls.yaml`**
 
-```yaml
+```
 apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
@@ -265,7 +265,6 @@ openssl x509 -in developer.crt -text -noout | head -20
 ### 3.4. Создание Role для просмотра подов и логов
 **Файл: `role-pod-reader.yaml`**
 ```
-yaml
 apiVersion: rbac.authorization.k8s.io/v1
 kind: Role
 metadata:
@@ -284,7 +283,6 @@ rules:
 ### 3.5. Создание RoleBinding
 **Файл: `rolebinding-developer.yaml`**
 ```
-yaml
 apiVersion: rbac.authorization.k8s.io/v1
 kind: RoleBinding
 metadata:
