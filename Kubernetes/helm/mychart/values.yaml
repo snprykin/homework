@@ -1,0 +1,12 @@
+# Версия образа nginx (меняется для деплоя разных версий)
+nginx:
+  image: nginx
+  tag: "1.27"
+  replicas: 1
+
+# Версия образа multitool
+multitool:
+  image: wbitt/network-multitool
+  tag: "latest"
+  replicas: 1
+  port: 8080

@@ -1,0 +1,31 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ .Release.Name }}-multitool
+  labels:
+    app: {{ .Release.Name }}-multitool
+spec:
+  replicas: {{ .Values.multitool.replicas }}
+  selector:
+    matchLabels:
+      app: {{ .Release.Name }}-multitool
+  template:
+    metadata:
+      labels:
+        app: {{ .Release.Name }}-multitool
+    spec:
+      containers:
+      - name: multitool
+        image: "{{ .Values.multitool.image }}:{{ .Values.multitool.tag }}"
+        env:
+        - name: HTTP_PORT
+          value: "{{ .Values.multitool.port }}"
+        ports:
+        - containerPort: {{ .Values.multitool.port }}
+        resources:
+          requests:
+            cpu: 50m
+            memory: 64Mi
+          limits:
+            cpu: 100m
+            memory: 128Mi
