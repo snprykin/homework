@@ -36,7 +36,7 @@
 ```
 terraform version
 ```
-Terraform v1.16.3 установлен через snap. Также настроен YC CLI с сервисным аккаунтом и folder_id.
+Terraform v1.16.3 установлен через snap. Также настроен YC CLI с сервисным аккаунтом и folder_id.  
 Скриншот 1: terraform version и yc config list — окружение готово.
 <img src="screenshots/1.png" width="100%">
 
@@ -44,7 +44,7 @@ Terraform v1.16.3 установлен через snap. Также настро�
 ```
 terraform init
 ```
-Провайдер yandex-cloud/yandex успешно установлен с зеркала Yandex Cloud.
+Провайдер yandex-cloud/yandex успешно установлен с зеркала Yandex Cloud.  
 Скриншот 2: terraform init — провайдер установлен.
 <img src="screenshots/2.png" width="100%">
 
@@ -52,7 +52,7 @@ terraform init
 ```
 terraform plan
 ```
-Terraform показывает план создания 7 ресурсов: 1 VPC, 2 подсети, 1 route table, 3 ВМ.
+Terraform показывает план создания 7 ресурсов: 1 VPC, 2 подсети, 1 route table, 3 ВМ.  
 Скриншот 3: terraform plan — Plan: 7 to add, 0 to change, 0 to destroy.
 <img src="screenshots/3.png" width="100%">
 
@@ -60,17 +60,18 @@ Terraform показывает план создания 7 ресурсов: 1 V
 ```
 terraform apply
 ```
-Все 7 ресурсов успешно созданы.
+Все 7 ресурсов успешно созданы.  
 Скриншот 4: terraform apply — Apply complete! Resources: 7 added.
 <img src="screenshots/4.png" width="100%">
 
-Ресурс	Публичный IP	Внутренний IP
-NAT-инстанс	46.21.247.97	192.168.10.254
-public-vm	93.77.183.18	192.168.10.29
-private-vm	—	192.168.20.3
+| Ресурс | Публичный IP | Внутренний IP |
+|--------|--------------|---------------|
+| NAT-инстанс | `46.21.247.97` | `192.168.10.254` |
+| public-vm | `93.77.183.18` | `192.168.10.29` |
+| private-vm | — | `192.168.20.3` |
 
 ### 1.5. Проверка ресурсов в Yandex Cloud
-Все три ВМ созданы и находятся в статусе RUNNING.
+Все три ВМ созданы и находятся в статусе RUNNING.  
 Скриншот 5:  три ВМ в статусе RUNNING.
 <img src="screenshots/5.png" width="100%">
 
@@ -83,7 +84,7 @@ ssh -i ~/.ssh/id_ed25519 user@93.77.183.18
 ```
 curl -s ifconfig.me
 ```
-Результат: 93.77.183.18 — публичный IP самой public-vm. Доступ в интернет напрямую.
+Результат: 93.77.183.18 — публичный IP самой public-vm. Доступ в интернет напрямую.  
 Скриншот 6: curl ifconfig.me на public-vm — возвращает собственный публичный IP.
 <img src="screenshots/6.png" width="100%">
 
@@ -101,7 +102,7 @@ ssh -i ~/.ssh/id_ed25519 user@192.168.20.3
 ```
 curl -s ifconfig.me
 ```
-Результат: 46.21.247.97 — публичный IP NAT-инстанса. Это подтверждает, что трафик с private-vm проходит через NAT-инстанс.
+Результат: 46.21.247.97 — публичный IP NAT-инстанса. Это подтверждает, что трафик с private-vm проходит через NAT-инстанс.  
 Скриншот 7: curl ifconfig.me на private-vm — возвращает публичный IP NAT-инстанса.
 <img src="screenshots/7.png" width="100%">
 
@@ -122,8 +123,7 @@ Public VM public IP:  93.77.183.18
 NAT Instance public:  46.21.247.97
 Private VM internal:  192.168.20.3
 
-Внешний IP с private-vm:
-46.21.247.97
+Внешний IP с private-vm:46.21.247.97  
 Скриншот 8: Сравнительная проверка IP-адресов — трафик private-vm идёт через NAT-инстанс.
 <img src="screenshots/8.png" width="100%">
 
@@ -131,7 +131,7 @@ Private VM internal:  192.168.20.3
 ```
 terraform state list
 ```
-Все 7 созданных ресурсов находятся под управлением Terraform.
+Все 7 созданных ресурсов находятся под управлением Terraform.  
 Скриншот 9: terraform state list — список управляемых ресурсов.
 <img src="screenshots/9.png" width="100%">
 
