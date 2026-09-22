@@ -8,7 +8,7 @@
 - [Архитектура кластера](#архитектура-кластера)
 - [Задание 1. Установка кластера k8s с 1 master node](#задание-1-установка-кластера-k8s-с-1-master-node)
 - [Проверка работоспособности](#проверка-работоспособности)
-- [Файлы в репозитории](#файлы-в-репозитории)
+- [Итог](#итог)
 
 ---
 
@@ -116,19 +116,13 @@ kubectl apply -f https://github.com/flannel-io/flannel/releases/latest/download/
 ```
 sudo kubeadm token create --print-join-command
 ```
-Выведена команда:
-```
-kubeadm join 10.129.0.5:6443 --token xxxxx.yyyyyyyyyyyyyyyy \
-  --discovery-token-ca-cert-hash sha256:zzzz...
-```
 Скриншот 4: kubeadm token create --print-join-command — команда для worker-нод.
 <img src="screenshots/4.png" width="100%">
 
 ### 1.6. Подключение worker-нод
 На каждой из 4 worker-нод выполнена команда:
 ```
-sudo kubeadm join 10.129.0.5:6443 --token xxxxx.yyyyyyyyyyyyyyyy \
-  --discovery-token-ca-cert-hash sha256:zzzz...
+sudo kubeadm join 10.129.0.5:6443 --token rrw1x7.n58ntxvjuk8l7v3h --discovery-token-ca-cert-hash sha256:c73993c11cb3ecfac3bfbaaeb622456c333b63dce721f0a459ec54a87000fb43
 ```
 Вывод на каждой ноде:
 This node has joined the cluster:
