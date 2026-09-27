@@ -49,7 +49,7 @@ terraform init
 ```
 terraform plan
 ```
-План создания 11 ресурсов, включая KMS-ключ, бакет с шифрованием, Instance Group, NLB.
+План создания 11 ресурсов, включая KMS-ключ, бакет с шифрованием, Instance Group, NLB.  
 Скриншот 2: terraform plan — Plan: 11 to add, 0 to change, 0 to destroy.
 <img src="screenshots/2.png" width="100%">
 
@@ -57,7 +57,7 @@ terraform plan
 ```
 terraform apply
 ```
-Все 11 ресурсов созданы.
+Все 11 ресурсов созданы.  
 Скриншот 3: terraform apply — Apply complete! Resources: 11 added.
 <img src="screenshots/3.png" width="100%">
 
@@ -69,7 +69,7 @@ terraform output
 - Bucket domain: https://snprykin-security-2026.website.yandexcloud.net
 - Instance Group ID: cl1kvp5g6dr23ccsadkj
 - KMS Key ID: abjcklosrfma4grrrc91
-- NLB IP: 158.160.158.13
+- NLB IP: 158.160.158.13  
 Скриншот 4: terraform output — все выходные данные.
 <img src="screenshots/4.png" width="100%">
 
@@ -133,11 +133,9 @@ resource "yandex_storage_bucket" "bucket" {
 yc kms symmetric-key list
 ```
 Вывод:
-+----------------------+-----------------------+----------------------+-------------------+---------------------+--------+
-|          ID          |         NAME          |  PRIMARY VERSION ID  | DEFAULT ALGORITHM |     CREATED AT      | STATUS |
-+----------------------+-----------------------+----------------------+-------------------+---------------------+--------+
-| abjcklosrfma4grrrc91 | bucket-encryption-key | abjactta9o5fs6lmn7sk | AES_256           | 2026-09-27 11:28:45 | ACTIVE |
-+----------------------+-----------------------+----------------------+-------------------+---------------------+--------+
+| ID | NAME | PRIMARY VERSION ID | DEFAULT ALGORITHM | CREATED AT | STATUS |
+|----|------|--------------------|-------------------|------------|--------|
+| abjcklosrfma4grrrc91 | bucket-encryption-key | abjactta9o5fs6lmn7sk | AES_256 | 2026-09-27 11:28:45 | ACTIVE |
 Скриншот 5: yc kms symmetric-key list — ключ создан.
 <img src="screenshots/5.png" width="100%">
 
@@ -150,7 +148,7 @@ yc storage s3api head-object --bucket snprykin-security-2026 --key picture.jpg
 server_side_encryption: aws:kms
 sse_kms_key_id: abjcklosrfma4grrrc91
 ```
-Объект picture.jpg зашифрован KMS-ключом abjcklosrfma4grrrc91 через алгоритм aws:kms.
+Объект picture.jpg зашифрован KMS-ключом abjcklosrfma4grrrc91 через алгоритм aws:kms.  
 Скриншот 6: head-object с server_side_encryption: aws:kms.
 <img src="screenshots/6.png" width="100%">
 
@@ -164,8 +162,8 @@ curl -v https://snprykin-security-2026.website.yandexcloud.net/ 2>&1 | grep -E "
 * Server certificate:
 *  subject: CN=*.website.yandexcloud.net
 *  issuer: C=US; O=Let's Encrypt; CN=R3
-* < HTTP/2 200
-Сертификат от Let's Encrypt, валидный для домена *.website.yandexcloud.net.
+* < HTTP/2 200  
+Сертификат от Let's Encrypt, валидный для домена *.website.yandexcloud.net.  
 Скриншот 7: curl -v с информацией о сертификате.
 <img src="screenshots/7.png" width="100%">
 
@@ -176,7 +174,7 @@ curl -I https://snprykin-security-2026.website.yandexcloud.net/
 Результат:
 * HTTP/2 200
 * content-type: text/html
-* content-length: 486
+* content-length: 486  
 Статический сайт index.html из бакета отдаётся по HTTPS.
 
 ### 2.3. Проверка картинки из бакета
@@ -186,7 +184,7 @@ curl -I https://snprykin-security-2026.website.yandexcloud.net/picture.jpg
 Результат:
 * HTTP/2 200
 * content-type: image/jpeg
-* content-length: 68245
+* content-length: 68245  
 Картинка доступна публично, шифрование прозрачно для клиента.
 
 ### 2.4. Браузер с замочком
@@ -194,7 +192,7 @@ curl -I https://snprykin-security-2026.website.yandexcloud.net/picture.jpg
 ```
 https://snprykin-security-2026.website.yandexcloud.net/
 ```
-В браузере:
+В браузере:  
 Скриншот 8: Браузер с сайтом из бакета и замочком.
 <img src="screenshots/8.png" width="100%">
 
@@ -202,7 +200,7 @@ https://snprykin-security-2026.website.yandexcloud.net/
 ```
 curl -s http://158.160.158.13/ | head -10
 ```
-Возвращается HTML-страница LAMP с приветствием и ссылкой на картинку из бакета.
+Возвращается HTML-страница LAMP с приветствием и ссылкой на картинку из бакета.  
 Скриншот 9: curl http://158.160.158.13/ — HTML через NLB.
 <img src="screenshots/9.png" width="100%">
 
