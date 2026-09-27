@@ -8,7 +8,7 @@
 - [Задание 1. Yandex Cloud](#задание-1-yandex-cloud)
 - [Проверка работоспособности](#проверка-работоспособности)
 - [Проверка отказоустойчивости](#проверка-отказоустойчивости)
-- [Поясрения](#пояснение)
+- [Пояснения](#пояснение)
 
 ---
 
@@ -346,7 +346,7 @@ curl -v http://158.160.225.0/
 ```
 yc compute instance-group list-instances lamp-ig
 ```
-# берём ID одной ВМ: fhmjha6i5mkspk337qd4
+К примеру берём ID одной ВМ: fhmjha6i5mkspk337qd4
 ```
 yc compute instance delete fhmjha6i5mkspk337qd4
 ```
