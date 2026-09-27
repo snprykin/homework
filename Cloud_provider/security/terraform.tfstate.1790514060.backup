@@ -1,0 +1,773 @@
+{
+  "version": 4,
+  "terraform_version": "1.16.4",
+  "serial": 16,
+  "lineage": "9ed70ac0-5042-f4be-84af-1f0bb228f7a9",
+  "outputs": {
+    "bucket_domain": {
+      "value": "https://snprykin-security-2026.website.yandexcloud.net",
+      "type": "string"
+    },
+    "instance_group_id": {
+      "value": "cl1kvp5g6dr23ccsadkj",
+      "type": "string"
+    },
+    "kms_key_id": {
+      "value": "abjcklosrfma4grrrc91",
+      "type": "string"
+    },
+    "nlb_ip": {
+      "value": [
+        "158.160.158.13"
+      ],
+      "type": [
+        "tuple",
+        [
+          "string"
+        ]
+      ]
+    }
+  },
+  "resources": [
+    {
+      "mode": "managed",
+      "type": "yandex_compute_instance_group",
+      "name": "ig-lamp",
+      "provider": "provider[\"registry.terraform.io/yandex-cloud/yandex\"]",
+      "instances": [
+        {
+          "schema_version": 0,
+          "attributes": {
+            "allocation_policy": [
+              {
+                "instance_tags_pool": [],
+                "zones": [
+                  "ru-central1-a"
+                ]
+              }
+            ],
+            "application_load_balancer": [],
+            "created_at": "2026-09-27T11:29:21Z",
+            "deletion_protection": false,
+            "deploy_policy": [
+              {
+                "max_creating": 1,
+                "max_deleting": 1,
+                "max_expansion": 1,
+                "max_unavailable": 1,
+                "startup_duration": 0,
+                "strategy": "proactive"
+              }
+            ],
+            "description": "",
+            "folder_id": "b1g9p43hspfbf3eqck03",
+            "health_check": [
+              {
+                "healthy_threshold": 3,
+                "http_options": [
+                  {
+                    "path": "/",
+                    "port": 80
+                  }
+                ],
+                "interval": 30,
+                "tcp_options": [],
+                "timeout": 10,
+                "unhealthy_threshold": 3
+              }
+            ],
+            "id": "cl1kvp5g6dr23ccsadkj",
+            "instance_template": [
+              {
+                "boot_disk": [
+                  {
+                    "device_name": "",
+                    "disk_id": "",
+                    "initialize_params": [
+                      {
+                        "description": "",
+                        "image_id": "fd827b91d99psvq5fjit",
+                        "size": 10,
+                        "snapshot_id": "",
+                        "type": "network-hdd"
+                      }
+                    ],
+                    "mode": "READ_WRITE",
+                    "name": ""
+                  }
+                ],
+                "description": "",
+                "filesystem": [],
+                "hostname": "",
+                "labels": {},
+                "metadata": {
+                  "user-data": "#cloud-config\nusers:\n  - name: user\n    groups: sudo\n    shell: /bin/bash\n    sudo: ['ALL=(ALL) NOPASSWD:ALL']\n    ssh_authorized_keys:\n      - ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIDV2KG7oQkXI2hxcDAxCPmXH+M8Nvp1JTh7S3rpqFQ4e user\n\n\nwrite_files:\n  - path: /var/www/html/index.html\n    permissions: '0644'\n    content: |\n      \u003c!DOCTYPE html\u003e\n      \u003chtml\u003e\n      \u003chead\u003e\n        \u003cmeta charset=\"UTF-8\"\u003e\n        \u003ctitle\u003eSecure LAMP Instance Group\u003c/title\u003e\n      \u003c/head\u003e\n      \u003cbody\u003e\n        \u003ch1\u003eHello from Secure Yandex Cloud LAMP!\u003c/h1\u003e\n        \u003cp\u003eСтудент: Прыкин Сергей\u003c/p\u003e\n        \u003cp\u003eДата: Сентябрь 2026\u003c/p\u003e\n        \u003cimg src=\"https://snprykin-security-2026.website.yandexcloud.net/picture.jpg\" alt=\"Picture\" width=\"600\"\u003e\n      \u003c/body\u003e\n      \u003c/html\u003e\n\nruncmd:\n  - systemctl restart apache2\n"
+                },
+                "metadata_options": [
+                  {
+                    "aws_v1_http_endpoint": 0,
+                    "aws_v1_http_token": 0,
+                    "aws_v2_http_endpoint": 0,
+                    "aws_v2_http_token": 0,
+                    "gce_http_endpoint": 0,
+                    "gce_http_token": 0
+                  }
+                ],
+                "name": "",
+                "network_interface": [
+                  {
+                    "dns_record": [],
+                    "ip_address": "",
+                    "ipv4": true,
+                    "ipv6": false,
+                    "ipv6_address": "",
+                    "ipv6_dns_record": [],
+                    "nat": true,
+                    "nat_dns_record": [],
+                    "nat_ip_address": "",
+                    "network_id": "enpmjd2tdbhma61k2dc4",
+                    "security_group_ids": [
+                      "enpd2csqkaqj77mld2v4"
+                    ],
+                    "subnet_ids": [
+                      "e9b5aud9dbsa144bjf8n"
+                    ]
+                  }
+                ],
+                "network_settings": [],
+                "placement_policy": [],
+                "platform_id": "standard-v3",
+                "reserved_instance_pool_id": "",
+                "resources": [
+                  {
+                    "core_fraction": 100,
+                    "cores": 2,
+                    "gpus": 0,
+                    "memory": 2
+                  }
+                ],
+                "scheduling_policy": [
+                  {
+                    "preemptible": false
+                  }
+                ],
+                "secondary_disk": [],
+                "service_account_id": ""
+              }
+            ],
+            "instances": [
+              {
+                "fqdn": "cl1kvp5g6dr23ccsadkj-igut.ru-central1.internal",
+                "instance_id": "fhm0b4kvp5g41748ehg5",
+                "instance_tag": "",
+                "name": "cl1kvp5g6dr23ccsadkj-igut",
+                "network_interface": [
+                  {
+                    "index": 0,
+                    "ip_address": "10.20.0.25",
+                    "ipv4": true,
+                    "ipv6": false,
+                    "ipv6_address": "",
+                    "mac_address": "d0:0d:59:29:fc:96",
+                    "nat": true,
+                    "nat_ip_address": "111.88.245.66",
+                    "nat_ip_version": "IPV4",
+                    "subnet_id": "e9b5aud9dbsa144bjf8n"
+                  }
+                ],
+                "status": "RUNNING_ACTUAL",
+                "status_changed_at": "2026-09-27T11:32:33Z",
+                "status_message": "",
+                "zone_id": "ru-central1-a"
+              },
+              {
+                "fqdn": "cl1kvp5g6dr23ccsadkj-enuj.ru-central1.internal",
+                "instance_id": "fhm25hq2pe8nludivo27",
+                "instance_tag": "",
+                "name": "cl1kvp5g6dr23ccsadkj-enuj",
+                "network_interface": [
+                  {
+                    "index": 0,
+                    "ip_address": "10.20.0.23",
+                    "ipv4": true,
+                    "ipv6": false,
+                    "ipv6_address": "",
+                    "mac_address": "d0:0d:22:c7:42:cb",
+                    "nat": true,
+                    "nat_ip_address": "111.88.247.115",
+                    "nat_ip_version": "IPV4",
+                    "subnet_id": "e9b5aud9dbsa144bjf8n"
+                  }
+                ],
+                "status": "RUNNING_ACTUAL",
+                "status_changed_at": "2026-09-27T11:35:11Z",
+                "status_message": "",
+                "zone_id": "ru-central1-a"
+              },
+              {
+                "fqdn": "cl1kvp5g6dr23ccsadkj-ejuf.ru-central1.internal",
+                "instance_id": "fhm4qlge9v16jluca65o",
+                "instance_tag": "",
+                "name": "cl1kvp5g6dr23ccsadkj-ejuf",
+                "network_interface": [
+                  {
+                    "index": 0,
+                    "ip_address": "10.20.0.17",
+                    "ipv4": true,
+                    "ipv6": false,
+                    "ipv6_address": "",
+                    "mac_address": "d0:0d:4d:56:0e:4f",
+                    "nat": true,
+                    "nat_ip_address": "111.88.241.75",
+                    "nat_ip_version": "IPV4",
+                    "subnet_id": "e9b5aud9dbsa144bjf8n"
+                  }
+                ],
+                "status": "RUNNING_ACTUAL",
+                "status_changed_at": "2026-09-27T11:37:39Z",
+                "status_message": "",
+                "zone_id": "ru-central1-a"
+              }
+            ],
+            "labels": {},
+            "load_balancer": [
+              {
+                "ignore_health_checks": false,
+                "max_opening_traffic_duration": 0,
+                "status_message": "",
+                "target_group_description": "",
+                "target_group_id": "enpib2oak37opg846c4b",
+                "target_group_labels": {},
+                "target_group_name": "security-lamp-tg"
+              }
+            ],
+            "max_checking_health_duration": 0,
+            "name": "security-lamp-ig",
+            "scale_policy": [
+              {
+                "auto_scale": [],
+                "fixed_scale": [
+                  {
+                    "size": 3
+                  }
+                ],
+                "test_auto_scale": []
+              }
+            ],
+            "service_account_id": "ajeitis1gp1f48lr9u5q",
+            "status": "ACTIVE",
+            "timeouts": null,
+            "variables": {}
+          },
+          "sensitive_attributes": [],
+          "identity_schema_version": 0,
+          "private": "eyJlMmJmYjczMC1lY2FhLTExZTYtOGY4OC0zNDM2M2JjN2M0YzAiOnsiY3JlYXRlIjoxODAwMDAwMDAwMDAwLCJkZWxldGUiOjE4MDAwMDAwMDAwMDAsInVwZGF0ZSI6MTgwMDAwMDAwMDAwMH19",
+          "dependencies": [
+            "yandex_iam_service_account.ig-sa",
+            "yandex_kms_symmetric_key.bucket_key",
+            "yandex_resourcemanager_folder_iam_member.ig-sa-editor",
+            "yandex_storage_bucket.bucket",
+            "yandex_vpc_network.network",
+            "yandex_vpc_security_group.sg",
+            "yandex_vpc_subnet.public"
+          ]
+        }
+      ]
+    },
+    {
+      "mode": "managed",
+      "type": "yandex_iam_service_account",
+      "name": "ig-sa",
+      "provider": "provider[\"registry.terraform.io/yandex-cloud/yandex\"]",
+      "instances": [
+        {
+          "schema_version": 1,
+          "attributes": {
+            "created_at": "2026-09-27T11:28:45Z",
+            "description": "Service account for Instance Group",
+            "expires_at": "1970-01-01T00:00:00Z",
+            "folder_id": "b1g9p43hspfbf3eqck03",
+            "id": "ajeitis1gp1f48lr9u5q",
+            "labels": null,
+            "name": "security-ig-sa",
+            "service_account_id": "ajeitis1gp1f48lr9u5q",
+            "status": "ACTIVE",
+            "timeouts": null
+          },
+          "sensitive_attributes": [],
+          "identity_schema_version": 0
+        }
+      ]
+    },
+    {
+      "mode": "managed",
+      "type": "yandex_kms_symmetric_key",
+      "name": "bucket_key",
+      "provider": "provider[\"registry.terraform.io/yandex-cloud/yandex\"]",
+      "instances": [
+        {
+          "schema_version": 1,
+          "attributes": {
+            "created_at": "2026-09-27T11:28:45Z",
+            "default_algorithm": "AES_256",
+            "deletion_protection": false,
+            "description": "Key for encrypting Object Storage bucket",
+            "folder_id": "b1g9p43hspfbf3eqck03",
+            "id": "abjcklosrfma4grrrc91",
+            "labels": null,
+            "name": "bucket-encryption-key",
+            "rotated_at": "1970-01-01T00:00:00Z",
+            "rotation_period": "8760h",
+            "status": "ACTIVE",
+            "symmetric_key_id": "abjcklosrfma4grrrc91",
+            "timeouts": null
+          },
+          "sensitive_attributes": [],
+          "identity_schema_version": 0
+        }
+      ]
+    },
+    {
+      "mode": "managed",
+      "type": "yandex_kms_symmetric_key_iam_binding",
+      "name": "kms-binding",
+      "provider": "provider[\"registry.terraform.io/yandex-cloud/yandex\"]",
+      "instances": [
+        {
+          "schema_version": 0,
+          "attributes": {
+            "id": "abjcklosrfma4grrrc91/kms.keys.encrypterDecrypter",
+            "members": [
+              "serviceAccount:ajenq99u0ja760a0edak"
+            ],
+            "role": "kms.keys.encrypterDecrypter",
+            "sleep_after": null,
+            "symmetric_key_id": "abjcklosrfma4grrrc91"
+          },
+          "sensitive_attributes": [],
+          "identity_schema_version": 0,
+          "dependencies": [
+            "yandex_kms_symmetric_key.bucket_key"
+          ]
+        }
+      ]
+    },
+    {
+      "mode": "managed",
+      "type": "yandex_lb_network_load_balancer",
+      "name": "nlb",
+      "provider": "provider[\"registry.terraform.io/yandex-cloud/yandex\"]",
+      "instances": [
+        {
+          "schema_version": 0,
+          "attributes": {
+            "allow_zonal_shift": false,
+            "attached_target_group": [
+              {
+                "healthcheck": [
+                  {
+                    "healthy_threshold": 2,
+                    "http_options": [
+                      {
+                        "path": "/",
+                        "port": 80
+                      }
+                    ],
+                    "interval": 2,
+                    "name": "http",
+                    "tcp_options": [],
+                    "timeout": 1,
+                    "unhealthy_threshold": 2
+                  }
+                ],
+                "target_group_id": "enpib2oak37opg846c4b"
+              }
+            ],
+            "created_at": "2026-09-27T11:37:48Z",
+            "deletion_protection": false,
+            "description": "",
+            "folder_id": "b1g9p43hspfbf3eqck03",
+            "id": "enpjnft26i6tc7i6agqa",
+            "labels": {},
+            "listener": [
+              {
+                "external_address_spec": [
+                  {
+                    "address": "158.160.158.13",
+                    "ip_version": "ipv4"
+                  }
+                ],
+                "internal_address_spec": [],
+                "name": "http",
+                "port": 80,
+                "protocol": "tcp",
+                "target_port": 80
+              }
+            ],
+            "name": "security-lamp-nlb",
+            "region_id": "ru-central1",
+            "timeouts": null,
+            "type": "external"
+          },
+          "sensitive_attributes": [],
+          "identity_schema_version": 0,
+          "private": "eyJlMmJmYjczMC1lY2FhLTExZTYtOGY4OC0zNDM2M2JjN2M0YzAiOnsiY3JlYXRlIjozMDAwMDAwMDAwMDAsImRlbGV0ZSI6MzAwMDAwMDAwMDAwLCJ1cGRhdGUiOjMwMDAwMDAwMDAwMH19",
+          "dependencies": [
+            "yandex_compute_instance_group.ig-lamp",
+            "yandex_iam_service_account.ig-sa",
+            "yandex_kms_symmetric_key.bucket_key",
+            "yandex_resourcemanager_folder_iam_member.ig-sa-editor",
+            "yandex_storage_bucket.bucket",
+            "yandex_vpc_network.network",
+            "yandex_vpc_security_group.sg",
+            "yandex_vpc_subnet.public"
+          ]
+        }
+      ]
+    },
+    {
+      "mode": "managed",
+      "type": "yandex_resourcemanager_folder_iam_member",
+      "name": "ig-sa-editor",
+      "provider": "provider[\"registry.terraform.io/yandex-cloud/yandex\"]",
+      "instances": [
+        {
+          "schema_version": 0,
+          "attributes": {
+            "folder_id": "b1g9p43hspfbf3eqck03",
+            "id": "b1g9p43hspfbf3eqck03/editor/serviceAccount:ajeitis1gp1f48lr9u5q",
+            "member": "serviceAccount:ajeitis1gp1f48lr9u5q",
+            "role": "editor",
+            "sleep_after": null
+          },
+          "sensitive_attributes": [],
+          "identity_schema_version": 0,
+          "dependencies": [
+            "yandex_iam_service_account.ig-sa"
+          ]
+        }
+      ]
+    },
+    {
+      "mode": "managed",
+      "type": "yandex_storage_bucket",
+      "name": "bucket",
+      "provider": "provider[\"registry.terraform.io/yandex-cloud/yandex\"]",
+      "instances": [
+        {
+          "schema_version": 1,
+          "attributes": {
+            "access_key": null,
+            "acl": "public-read",
+            "anonymous_access_flags": [
+              {
+                "config_read": null,
+                "list": false,
+                "read": true
+              }
+            ],
+            "bucket": "snprykin-security-2026",
+            "bucket_domain_name": "snprykin-security-2026.storage.yandexcloud.net",
+            "bucket_prefix": null,
+            "cors_rule": [],
+            "default_storage_class": "STANDARD",
+            "disabled_statickey_auth": false,
+            "folder_id": "b1g9p43hspfbf3eqck03",
+            "force_destroy": false,
+            "grant": [],
+            "https": [],
+            "id": "snprykin-security-2026",
+            "lifecycle_rule": [],
+            "logging": [],
+            "max_size": 0,
+            "object_lock_configuration": [],
+            "policy": "",
+            "secret_key": null,
+            "server_side_encryption_configuration": [
+              {
+                "rule": [
+                  {
+                    "apply_server_side_encryption_by_default": [
+                      {
+                        "kms_master_key_id": "abjcklosrfma4grrrc91",
+                        "sse_algorithm": "aws:kms"
+                      }
+                    ]
+                  }
+                ]
+              }
+            ],
+            "tags": {},
+            "versioning": [
+              {
+                "enabled": false
+              }
+            ],
+            "website": [
+              {
+                "error_document": "",
+                "index_document": "index.html",
+                "redirect_all_requests_to": "",
+                "routing_rules": ""
+              }
+            ],
+            "website_domain": "website.yandexcloud.net",
+            "website_endpoint": "snprykin-security-2026.website.yandexcloud.net"
+          },
+          "sensitive_attributes": [
+            [
+              {
+                "type": "get_attr",
+                "value": "secret_key"
+              }
+            ]
+          ],
+          "identity_schema_version": 0,
+          "private": "eyJzY2hlbWFfdmVyc2lvbiI6IjEifQ==",
+          "dependencies": [
+            "yandex_kms_symmetric_key.bucket_key"
+          ]
+        }
+      ]
+    },
+    {
+      "mode": "managed",
+      "type": "yandex_storage_object",
+      "name": "index",
+      "provider": "provider[\"registry.terraform.io/yandex-cloud/yandex\"]",
+      "instances": [
+        {
+          "schema_version": 0,
+          "attributes": {
+            "access_key": null,
+            "acl": "public-read",
+            "bucket": "snprykin-security-2026",
+            "content": "\u003c!DOCTYPE html\u003e\n\u003chtml\u003e\n\u003chead\u003e\n  \u003cmeta charset=\"UTF-8\"\u003e\n  \u003ctitle\u003eSecure Static Site\u003c/title\u003e\n\u003c/head\u003e\n\u003cbody\u003e\n  \u003ch1\u003eHello from Secure Object Storage!\u003c/h1\u003e\n  \u003cp\u003eСтудент: Прыкин Сергей\u003c/p\u003e\n  \u003cp\u003eДата: Сентябрь 2026\u003c/p\u003e\n  \u003cp\u003eЭтот сайт размещён в Object Storage, зашифрован KMS и доступен по HTTPS.\u003c/p\u003e\n  \u003cimg src=\"https://snprykin-security-2026.website.yandexcloud.net/picture.jpg\" alt=\"Picture\" width=\"600\"\u003e\n\u003c/body\u003e\n\u003c/html\u003e\n",
+            "content_base64": null,
+            "content_type": "text/html",
+            "id": "index.html",
+            "key": "index.html",
+            "object_lock_legal_hold_status": null,
+            "object_lock_mode": null,
+            "object_lock_retain_until_date": null,
+            "secret_key": null,
+            "source": null,
+            "source_hash": null,
+            "tags": {}
+          },
+          "sensitive_attributes": [
+            [
+              {
+                "type": "get_attr",
+                "value": "secret_key"
+              }
+            ]
+          ],
+          "identity_schema_version": 0,
+          "private": "bnVsbA==",
+          "dependencies": [
+            "yandex_kms_symmetric_key.bucket_key",
+            "yandex_storage_bucket.bucket"
+          ]
+        }
+      ]
+    },
+    {
+      "mode": "managed",
+      "type": "yandex_storage_object",
+      "name": "picture",
+      "provider": "provider[\"registry.terraform.io/yandex-cloud/yandex\"]",
+      "instances": [
+        {
+          "schema_version": 0,
+          "attributes": {
+            "access_key": null,
+            "acl": "public-read",
+            "bucket": "snprykin-security-2026",
+            "content": null,
+            "content_base64": null,
+            "content_type": "image/jpeg",
+            "id": "picture.jpg",
+            "key": "picture.jpg",
+            "object_lock_legal_hold_status": null,
+            "object_lock_mode": null,
+            "object_lock_retain_until_date": null,
+            "secret_key": null,
+            "source": "picture.jpg",
+            "source_hash": null,
+            "tags": {}
+          },
+          "sensitive_attributes": [
+            [
+              {
+                "type": "get_attr",
+                "value": "secret_key"
+              }
+            ]
+          ],
+          "identity_schema_version": 0,
+          "private": "bnVsbA==",
+          "dependencies": [
+            "yandex_kms_symmetric_key.bucket_key",
+            "yandex_storage_bucket.bucket"
+          ]
+        }
+      ]
+    },
+    {
+      "mode": "managed",
+      "type": "yandex_vpc_network",
+      "name": "network",
+      "provider": "provider[\"registry.terraform.io/yandex-cloud/yandex\"]",
+      "instances": [
+        {
+          "schema_version": 0,
+          "attributes": {
+            "created_at": "2026-09-27T11:28:40Z",
+            "default_security_group_id": "enpr073oob9nfqmj0fcd",
+            "description": "",
+            "folder_id": "b1g9p43hspfbf3eqck03",
+            "id": "enpmjd2tdbhma61k2dc4",
+            "labels": {},
+            "name": "security-network",
+            "subnet_ids": [
+              "e9b5aud9dbsa144bjf8n"
+            ],
+            "timeouts": null
+          },
+          "sensitive_attributes": [],
+          "identity_schema_version": 0,
+          "private": "eyJlMmJmYjczMC1lY2FhLTExZTYtOGY4OC0zNDM2M2JjN2M0YzAiOnsiY3JlYXRlIjo2MDAwMDAwMDAwMCwiZGVsZXRlIjo2MDAwMDAwMDAwMCwidXBkYXRlIjo2MDAwMDAwMDAwMH19"
+        }
+      ]
+    },
+    {
+      "mode": "managed",
+      "type": "yandex_vpc_security_group",
+      "name": "sg",
+      "provider": "provider[\"registry.terraform.io/yandex-cloud/yandex\"]",
+      "instances": [
+        {
+          "schema_version": 0,
+          "attributes": {
+            "created_at": "2026-09-27T11:28:44Z",
+            "description": "",
+            "egress": [
+              {
+                "description": "any",
+                "from_port": -1,
+                "id": "enpc6amino8guqmn817o",
+                "labels": {},
+                "port": -1,
+                "predefined_target": "",
+                "protocol": "ANY",
+                "security_group_id": "",
+                "to_port": -1,
+                "v4_cidr_blocks": [
+                  "0.0.0.0/0"
+                ],
+                "v6_cidr_blocks": []
+              }
+            ],
+            "folder_id": "b1g9p43hspfbf3eqck03",
+            "id": "enpd2csqkaqj77mld2v4",
+            "ingress": [
+              {
+                "description": "http",
+                "from_port": -1,
+                "id": "enp1rfut5rp2km6vbaen",
+                "labels": {},
+                "port": 80,
+                "predefined_target": "",
+                "protocol": "TCP",
+                "security_group_id": "",
+                "to_port": -1,
+                "v4_cidr_blocks": [
+                  "0.0.0.0/0"
+                ],
+                "v6_cidr_blocks": []
+              },
+              {
+                "description": "nlb-healthchecks",
+                "from_port": -1,
+                "id": "enp3mmsmqid7o9buor0n",
+                "labels": {},
+                "port": 80,
+                "predefined_target": "",
+                "protocol": "TCP",
+                "security_group_id": "",
+                "to_port": -1,
+                "v4_cidr_blocks": [
+                  "198.18.235.0/24",
+                  "198.18.248.0/24"
+                ],
+                "v6_cidr_blocks": []
+              },
+              {
+                "description": "ssh",
+                "from_port": -1,
+                "id": "enpspscur7qescv4tpo4",
+                "labels": {},
+                "port": 22,
+                "predefined_target": "",
+                "protocol": "TCP",
+                "security_group_id": "",
+                "to_port": -1,
+                "v4_cidr_blocks": [
+                  "0.0.0.0/0"
+                ],
+                "v6_cidr_blocks": []
+              }
+            ],
+            "labels": {},
+            "name": "security-sg",
+            "network_id": "enpmjd2tdbhma61k2dc4",
+            "status": "ACTIVE",
+            "timeouts": null
+          },
+          "sensitive_attributes": [],
+          "identity_schema_version": 0,
+          "private": "eyJlMmJmYjczMC1lY2FhLTExZTYtOGY4OC0zNDM2M2JjN2M0YzAiOnsiY3JlYXRlIjoxODAwMDAwMDAwMDAsImRlbGV0ZSI6MTgwMDAwMDAwMDAwLCJ1cGRhdGUiOjE4MDAwMDAwMDAwMH19",
+          "dependencies": [
+            "yandex_vpc_network.network"
+          ]
+        }
+      ]
+    },
+    {
+      "mode": "managed",
+      "type": "yandex_vpc_subnet",
+      "name": "public",
+      "provider": "provider[\"registry.terraform.io/yandex-cloud/yandex\"]",
+      "instances": [
+        {
+          "schema_version": 0,
+          "attributes": {
+            "created_at": "2026-09-27T11:28:43Z",
+            "description": "",
+            "dhcp_options": [],
+            "folder_id": "b1g9p43hspfbf3eqck03",
+            "id": "e9b5aud9dbsa144bjf8n",
+            "labels": {},
+            "name": "security-public-subnet",
+            "network_id": "enpmjd2tdbhma61k2dc4",
+            "route_table_id": "",
+            "timeouts": null,
+            "v4_cidr_blocks": [
+              "10.20.0.0/24"
+            ],
+            "v6_cidr_blocks": [],
+            "zone": "ru-central1-a"
+          },
+          "sensitive_attributes": [],
+          "identity_schema_version": 0,
+          "private": "eyJlMmJmYjczMC1lY2FhLTExZTYtOGY4OC0zNDM2M2JjN2M0YzAiOnsiY3JlYXRlIjoxODAwMDAwMDAwMDAsImRlbGV0ZSI6MTgwMDAwMDAwMDAwLCJ1cGRhdGUiOjE4MDAwMDAwMDAwMH19",
+          "dependencies": [
+            "yandex_vpc_network.network"
+          ]
+        }
+      ]
+    }
+  ],
+  "check_results": null
+}
