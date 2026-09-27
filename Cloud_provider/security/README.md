@@ -135,7 +135,7 @@ yc kms symmetric-key list
 Вывод:
 | ID | NAME | PRIMARY VERSION ID | DEFAULT ALGORITHM | CREATED AT | STATUS |
 |----|------|--------------------|-------------------|------------|--------|
-| abjcklosrfma4grrrc91 | bucket-encryption-key | abjactta9o5fs6lmn7sk | AES_256 | 2026-09-27 11:28:45 | ACTIVE |
+| abjcklosrfma4grrrc91 | bucket-encryption-key | abjactta9o5fs6lmn7sk | AES_256 | 2026-09-27 11:28:45 | ACTIVE |  
 Скриншот 5: yc kms symmetric-key list — ключ создан.
 <img src="screenshots/5.png" width="100%">
 
