@@ -1,0 +1,92 @@
+# ============================================
+# kube-prometheus-stack: Prometheus + Grafana + Alertmanager
+# ============================================
+
+# Grafana — доступ через LoadBalancer на порту 80
+grafana:
+  enabled: true
+  adminPassword: "diplom2026"
+  dnsConfig:
+    options:
+      - name: ndots
+        value: "2"
+
+  service:
+    type: LoadBalancer
+    port: 80
+    targetPort: 3000
+    annotations:
+      yandex.cloud/load-balancer-type: "nlb"
+
+  persistence:
+    enabled: false
+
+  defaultDashboardsEnabled: true
+  defaultDashboardsTimezone: "Asia/Yekaterinburg"
+
+# Prometheus
+prometheus:
+  enabled: true
+  service:
+    type: ClusterIP
+
+  prometheusSpec:
+    dnsConfig:
+     options:
+       - name: ndots
+         value: "2"
+    retention: 7d
+    resources:
+      requests:
+        cpu: 200m
+        memory: 512Mi
+      limits:
+        cpu: 1000m
+        memory: 2Gi
+    storageSpec: {}
+
+# Alertmanager
+alertmanager:
+  enabled: true
+  service:
+    type: ClusterIP
+
+  alertmanagerSpec:
+    resources:
+      requests:
+        cpu: 50m
+        memory: 64Mi
+      limits:
+        cpu: 200m
+        memory: 256Mi
+    storage: {}
+
+# Node Exporter
+prometheus-node-exporter:
+  resources:
+    requests:
+      cpu: 50m
+      memory: 64Mi
+    limits:
+      cpu: 200m
+      memory: 128Mi
+
+# Kube State Metrics
+kube-state-metrics:
+  resources:
+    requests:
+      cpu: 50m
+      memory: 64Mi
+    limits:
+      cpu: 200m
+      memory: 256Mi
+
+# Prometheus Operator
+prometheusOperator:
+  resources:
+    requests:
+      cpu: 100m
+      memory: 128Mi
+    limits:
+      cpu: 500m
+      memory: 512Mi
