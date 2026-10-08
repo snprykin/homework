@@ -66,7 +66,7 @@
 - `vpc.publicAdmin`, `load-balancer.admin`
 
 [Скриншот 1](screenshots/1.png)
-
+*Скриншот 1: Создан сервисный аккаунт*
 **Файлы:**
 
 - `terraform/sa/main.tf` — сервисный аккаунт, статический ключ, бакет
